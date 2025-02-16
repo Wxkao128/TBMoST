@@ -25,6 +25,7 @@ TBMoST 具備 **高度模組化**、**計算效率高** 及 **直觀易用的 AP
 ----------
 
 主要功能包含:
+
 * 1. 能帶結構 (Band Structure)
   * 高對稱點一維能帶計算 (1D Band Structure along High-Symmetry Points)
   * 二維能帶圖 (2D Band Map)
