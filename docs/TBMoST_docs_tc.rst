@@ -26,17 +26,17 @@ TBMoST 具備 **高度模組化**、**計算效率高** 及 **直觀易用的 AP
 
 主要功能包含:
 
-* 1. 能帶結構 (Band Structure)
+* 能帶結構 (Band Structure)
      * 高對稱點一維能帶計算 (1D Band Structure along High-Symmetry Points)
      * 二維能帶圖 (2D Band Map)
      * 三維能帶圖 (3D Band Plot)
 
-* 2. 態密度 (Density of States, DOS)
+* 態密度 (Density of States, DOS)
   * 總電子態密度 (Total DOS)
   * 局域態密度 (Local DOS, LDOS)
      * 三種計算方式:
         * 普通直方圖計算 (Histogram Method)
-     * 格林函數法 (Green's Function Method)
+        * 格林函數法 (Green's Function Method)
      * Lorentzian Broadening Method
 
 * 3. 譜函數 (Spectral Function)
