@@ -5,3 +5,10 @@ release = '1.0'
 
 # -- Main -----------------------------------------------------------
 master_doc = 'TBMoST.md'  # (index.rst or index.md)
+
+extensions = [
+    'sphinx.ext.autodoc',
+    'sphinx.ext.napoleon',
+]
+
+language = 'zh'
