@@ -110,11 +110,13 @@ TBMoST 具備 **高度模組化**、**計算效率高** 及 **直觀易用的 AP
 旋轉雙層石墨烯要形成週期結構，期兩層間的旋轉角度要滿足如下公式，其中 $m$、 $n$ 是互質的正整數。
 
 .. math::
+
     \cos{\theta}=\frac{m^2+n^2+4mn}{2(m^2+n^2+mn)}
 
 
 
 .. code-block:: python
+
     from tbmost.core.structure import *
     from tbmost import StructurePlotter
     
@@ -144,48 +146,50 @@ TBMoST 具備 **高度模組化**、**計算效率高** 及 **直觀易用的 AP
 
 這樣我們就把兩層之間有相對轉角的石墨烯給建立完成了，接著我們需要找出這個週期性重複結構的最小單元，也就是unitcell。
 
-```python
-# Find the coincident atoms
-rot_layer1 = np.concatenate((tbg1a, tbg1b))
-rot_layer2 = np.concatenate((tbg2a, tbg2b))
+.. code-block:: python
 
-coincident_12 = tw.find_coincident_atoms(rot_layer1, rot_layer2)
-
-# Create a plotter instance
-plotter = StructurePlotter()
-
-# Add different sublattices of different layers
-plotter.add_layer(tbg1a, 'Layer 1 A', 'b')
-plotter.add_layer(tbg1b, 'Layer 1 B', 'b')
-plotter.add_layer(tbg2a, 'Layer 2 A', 'r')
-plotter.add_layer(tbg2b, 'Layer 2 B', 'r')
-
-# coincident_12 是之前計算出的重疊原子坐標
-finder = SupercellFinder(coincident_12)
-finder.find_vertices()
-atomO, atomA, atomB, atomC = finder.get_vertices()
-```
+    # Find the coincident atoms
+    rot_layer1 = np.concatenate((tbg1a, tbg1b))
+    rot_layer2 = np.concatenate((tbg2a, tbg2b))
+    
+    coincident_12 = tw.find_coincident_atoms(rot_layer1, rot_layer2)
+    
+    # Create a plotter instance
+    plotter = StructurePlotter()
+    
+    # Add different sublattices of different layers
+    plotter.add_layer(tbg1a, 'Layer 1 A', 'b')
+    plotter.add_layer(tbg1b, 'Layer 1 B', 'b')
+    plotter.add_layer(tbg2a, 'Layer 2 A', 'r')
+    plotter.add_layer(tbg2b, 'Layer 2 B', 'r')
+    
+    # coincident_12 are the overlaping atoms
+    finder = SupercellFinder(coincident_12)
+    finder.find_vertices()
+    atomO, atomA, atomB, atomC = finder.get_vertices()
 
 unitcell找到後我們可以將其畫出來並查看其幾何構造
 
-```python
-# Plot structure
-plotter.plot_unitcell(atomO, atomB, atomA, atomC, lw=2)
-plotter.plot(coincident_12,plot_coincident=False)
+.. code-block:: python
 
-l1a = Count_atom_num(tbg1a,atomO, atomB, atomA, atomC).count_atom_num(stack_conf='AA', sublattice_type='A', h=10)
-l1b = Count_atom_num(tbg1b,atomO, atomB, atomA, atomC).count_atom_num(stack_conf='AA', sublattice_type='B', h=10)
-l2a = Count_atom_num(tbg2a,atomO, atomB, atomA, atomC).count_atom_num(stack_conf='AA', sublattice_type='A', h=13.35)
-l2b = Count_atom_num(tbg2b,atomO, atomB, atomA, atomC).count_atom_num(stack_conf='AA', sublattice_type='B', h=13.35)
-can = [len(l1a)+len(l1b)+len(l2a)+len(l2b),l1a,l1b,l2a,l2b]
-```
+    # Plot structure
+    plotter.plot_unitcell(atomO, atomB, atomA, atomC, lw=2)
+    plotter.plot(coincident_12,plot_coincident=False)
+    
+    l1a = Count_atom_num(tbg1a,atomO, atomB, atomA, atomC).count_atom_num(stack_conf='AA', sublattice_type='A', h=10)
+    l1b = Count_atom_num(tbg1b,atomO, atomB, atomA, atomC).count_atom_num(stack_conf='AA', sublattice_type='B', h=10)
+    l2a = Count_atom_num(tbg2a,atomO, atomB, atomA, atomC).count_atom_num(stack_conf='AA', sublattice_type='A', h=13.35)
+    l2b = Count_atom_num(tbg2b,atomO, atomB, atomA, atomC).count_atom_num(stack_conf='AA', sublattice_type='B', h=13.35)
+    can = [len(l1a)+len(l1b)+len(l2a)+len(l2b),l1a,l1b,l2a,l2b]
 
-```python
-Output:
-twisted angle: 13.17°
-vertex = [0. 0.]
-supercell is 'horizontal diamond' 
-```
+
+.. code-block:: python
+
+    Output:
+    twisted angle: 13.17°
+    vertex = [0. 0.]
+    supercell is 'horizontal diamond' 
+
 
 ![TBG_1317_str](E:\download\TBG_1317_str.png)
 
