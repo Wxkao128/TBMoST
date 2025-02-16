@@ -17,4 +17,14 @@ html_theme_options = {
     'mathjax_path': 'https://cdn.jsdelivr.net/npm/mathjax@2/es5/tex-mml-chtml.js',
 }
 
+mathjax_config = {
+    "TeX": {
+        "Macros": {
+            "bra": r"\\langle",
+            "ket": r"\\rangle",
+        }
+    }
+}
+
+
 #language = 'zh'
