@@ -2,7 +2,7 @@ TBMoST：計算 Moiré 超晶格的強大工具
 =================================
 
 
-TBMoST (__T__ight **B**inding for **M**oiré **S**uper s**T**ructure) 是一款專為 **Moiré 超晶格** 設計的高效 **Python 科學計算套件**，基於 **Tight Binding Model (TBM)** 進行電子結構計算。
+TBMoST (Tight Binding for Moiré Super sTructure) 是一款專為 Moiré 超晶格 設計的高效 Python 科學計算套件，基於 Tight Binding Model (TBM) 進行電子結構計算。
 
 該套件專門用於處理 **扭轉層二維材料 (twisted-layer materials)**，可高效計算並分析多種物理性質，包括：
 
