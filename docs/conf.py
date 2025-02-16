@@ -7,6 +7,7 @@ release = '1.0'
 master_doc = 'TBMoST_docs_tc'  # (index.rst or index.md)
 
 extensions = [
+    'sphinx.ext.imgmath',
     'sphinx.ext.mathjax',
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
