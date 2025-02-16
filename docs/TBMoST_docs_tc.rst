@@ -69,35 +69,31 @@ TBMoST 具備 **高度模組化**、**計算效率高** 及 **直觀易用的 AP
    :width: 50%
    :align: center
 
-<div style="text-align: center;">
-    <img src="E:\download\hex_grid_plot.png" alt="hex_grid_plot" alt="Modeling of KTH UTBSOI MOSFET" style="zoom: 25%;" />
-    <p>準晶格(Quasi-crystal)</p>
-</div>
-
-<div style="text-align: center;">
-    <img src="E:\download\Moire_734.png" alt="hex_grid_plot" alt="Modeling of KTH UTBSOI MOSFET" style="zoom: 50%;" />
-    <p>摩爾超晶格(Moiré super lattice)</p>
-</div>
+.. image:: image/Moire_734.png
+   :width: 50%
+   :align: center
 
 
-
-## 安裝需求
+安裝需求
+-------
 
 請先安裝以下套件:
 
-```python
-numpy
-matplotlib
-scipy
-numba
-```
+.. code-block:: python
+
+    numpy
+    matplotlib
+    scipy
+    numba
 
 
 
-## 教學
 
-#### 導入套件
+教學
+----
 
+導入套件
+^^^^^^^^
 首先，我們先導入基本的套件:
 
 ```python
