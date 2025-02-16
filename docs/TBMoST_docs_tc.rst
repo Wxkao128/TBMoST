@@ -191,105 +191,114 @@ unitcell找到後我們可以將其畫出來並查看其幾何構造
     supercell is 'horizontal diamond' 
 
 
-![TBG_1317_str](E:\download\TBG_1317_str.png)
+.. image:: image/TBG_1317_str.png
+   :width: 50%
+   :align: center
+
 
 可以看到這是$13.17\degree$的石墨烯結構，而藍色線條框起來的範圍正是其unitcell。如果我們還想知道關於晶格的其他相關資訊可以用以下方法查看:
 
-```python
-cell_info = Count_atom_num(tbg1a,atomO, atomB, atomA, atomC).cell_info()
-print(cell_info)
+.. code-block:: python
 
-Output:
-(99.5364565788833,
- array([ 0.       , 10.7207649]),
- array([-9.28445475,  5.36038245]),
- 10.720764898084)
-```
+    cell_info = Count_atom_num(tbg1a,atomO, atomB, atomA, atomC).cell_info()
+    print(cell_info)
+
+
+.. code-block:: python
+
+    Output:
+    (99.5364565788833,
+     array([ 0.       , 10.7207649]),
+     array([-9.28445475,  5.36038245]),
+     10.720764898084)
 
 這些資訊告訴我們unitcell的面積大約是$100\AA^2$，中間兩行分別是兩個晶格向量，最後的$10.72\AA$則是晶格常數。
 
 
-
-#### 輸出結構
+輸出結構
+^^^^^^^^
 
 我們可以將上面產生的結構保存下來，提供給其他軟體進行計算和分析，我們輸出的格式是以第一原理計算軟體`VASP`的結構檔案`POSCAR`的格式為基準。
 
-```python
-from tbmost import POSCARGenerator
+.. code-block:: python
 
-poscar_generator = POSCARGenerator(atomO, atomA, atomB, atomC, can, 
-                                   name='TBG', twist_angle=angle_dgr, 
-                                   stack_conf='AA')
-poscar_generator.generate_POSCAR(atom_type=['C'])
-```
+    from tbmost import POSCARGenerator
+    
+    poscar_generator = POSCARGenerator(atomO, atomA, atomB, atomC, can, 
+                                       name='TBG', twist_angle=angle_dgr, 
+                                       stack_conf='AA')
+    poscar_generator.generate_POSCAR(atom_type=['C'])
 
 輸出成功後會出現以下訊息:
 
-```python
-=====================================================
-POSCAR file generated at: POSCAR_TBG_1317_AA
-POSCAR was written successfully.
-=====================================================
-Time taken: 0.000000 seconds
-```
+.. code-block:: python
+
+    =====================================================
+    POSCAR file generated at: POSCAR_TBG_1317_AA
+    POSCAR was written successfully.
+    =====================================================
+    Time taken: 0.000000 seconds
 
 
-
-#### 構建哈密頓量
+構建哈密頓量
+^^^^^^^^^^^
 
 為了計算能帶、態密度和其他物理性質，我們必須先構建出系統的哈密頓量，我們將剛才得到的晶格的四個頂點帶入類別`TBModel`中，並且將測試k點也帶入，這邊的測試k點採用$\Gamma$ point，因為系統的哈密頓量是依賴k的，但是這邊先示範構建出一個簡單的哈密頓量，所以我們不採用太複雜的選擇。
 
-```python
-from tbmost.analysis.solver import *
-from tbmost import TBModel
+.. code-block:: python
 
-kx = np.array([0])
-ky = np.array([0])
-tb_model_instance = TBModel(atomO, atomB, atomA, atomC, kx=kx, ky=ky, can=can, sp_zm=0, b_mag=0, beta_d=0, strain_m=1)
-hamiltonian, hopping_data = tb_model_instance.finalize_ham(hopping_list=True)  # 樸素哈密頓量矩陣
-onsite_part = tb_model_instance.onsite_e_field(len(can[1]), 2, [0,0])  # onsite
-hamiltonian += onsite_part
-solver = EigenSolver(hamiltonian)
-```
+    from tbmost.analysis.solver import *
+    from tbmost import TBModel
+    
+    kx = np.array([0])
+    ky = np.array([0])
+    tb_model_instance = TBModel(atomO, atomB, atomA, atomC, kx=kx, ky=ky, can=can, sp_zm=0, b_mag=0, beta_d=0, strain_m=1)
+    hamiltonian, hopping_data = tb_model_instance.finalize_ham(hopping_list=True)  # 樸素哈密頓量矩陣
+    onsite_part = tb_model_instance.onsite_e_field(len(can[1]), 2, [0,0])  # onsite
+    hamiltonian += onsite_part
+    solver = EigenSolver(hamiltonian)
 
 如此哈密頓量就建出來了，我們使用這兩個變數`hamiltonian, hopping_data`儲存建立出來的哈密頓量，其中第一個變數儲存的是當下帶入k點後的哈密頓量矩陣，而第二個參數則是儲存 hopping 相關訊息。
-
 我們可以使用`EigenSolver`類別中的`solve_eig`方法解矩陣對角化，可以選擇需要返回特徵值、特徵向量還是兩者一起返回。
 
-```python
-# 僅返回特徵向量
-tb_eigenvectors = solver.solve_eig(return_vectors=True)
+.. code-block:: python
 
-# 僅返回特徵值
-tb_eigenvalues = solver.solve_eig(return_eigenvalues=True)
+    # 僅返回特徵向量
+    tb_eigenvectors = solver.solve_eig(return_vectors=True)
+    
+    # 僅返回特徵值
+    tb_eigenvalues = solver.solve_eig(return_eigenvalues=True)
+    
+    # 返回特徵值和特徵向量
+    tb_eigenvalues, tb_eigenvectors = solver.solve_eig()
 
-# 返回特徵值和特徵向量
-tb_eigenvalues, tb_eigenvectors = solver.solve_eig()
-```
+.. note::
 
-==注意:== 這是很關鍵的步驟，如果不想重複生成哈密頓量矩陣，我們可以將剛才的變數 `hopping_data`保存下來，之後計算的物理量需要用到哈密頓量時，我們就可以直接讀取該檔案內容，快速產生哈密頓量。
-
-```python
-flattened = [item for sublist in hopping_data for item in sublist]
-hopping_array = np.array(flattened)
-np.save(f'TBG_{int(angle_dgr * 100)}_hopping.npy', hopping_array)
-```
+    這是很關鍵的步驟，如果不想重複生成哈密頓量矩陣，我們可以將剛才的變數 `hopping_data`保存下來，之後計算的物理量需要用到哈密頓量時，我們就可以直接讀取該檔案內容，快速產生哈密頓量。
 
 
+.. code-block:: python
 
-#### k空間(Brillouin zone)格點
+    flattened = [item for sublist in hopping_data for item in sublist]
+    hopping_array = np.array(flattened)
+    np.save(f'TBG_{int(angle_dgr * 100)}_hopping.npy', hopping_array)
+
+
+
+k空間(Brillouin zone)格點
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 因為是我們計算的是週期結構，所以哈密頓量和後面計算的物理量都依賴k空間的格點，我們可以使用`Moire_Brillouin_zone`類別的功能幫我們產生k點。
 
-```python
-from tbmost import Moire_Brillouin_zone
+.. code-block:: python
 
-mbz = Moire_Brillouin_zone(atomO, atomB, atomA, atomC)
-
-# For testing: Draw and calculate the rhombus/hexagonal BZ and the k points inside it
-mbz.hexagon_bz(kpoints=11, plot_bz=True, plot_redbz_6=True)
-kxx, kyy, a1_norm, a2_norm = mbz.hexagon_bz(plot_bz=False)
-```
+    from tbmost import Moire_Brillouin_zone
+    
+    mbz = Moire_Brillouin_zone(atomO, atomB, atomA, atomC)
+    
+    # For testing: Draw and calculate the rhombus/hexagonal BZ and the k points inside it
+    mbz.hexagon_bz(kpoints=11, plot_bz=True, plot_redbz_6=True)
+    kxx, kyy, a1_norm, a2_norm = mbz.hexagon_bz(plot_bz=False)
 
 以下是產生k點後顯示的訊息，`TBMoST`會輸出晶格的時空間向量和倒空間向量以及高對稱點$K(K')$點和$M$點的座標，另外在第一布里淵區中所有的格點數目也會在最下方一併顯示。
 
