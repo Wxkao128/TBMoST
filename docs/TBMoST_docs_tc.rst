@@ -186,7 +186,7 @@ unitcell找到後我們可以將其畫出來並查看其幾何構造
 .. code-block:: python
 
     Output:
-    twisted angle: 13.17°
+    twisted angle: 13.17
     vertex = [0. 0.]
     supercell is 'horizontal diamond' 
 
@@ -597,6 +597,7 @@ k空間(Brillouin zone)格點
 如果想要查看欲投影之原子編號可使用以下指令:
 
 .. code-block:: python
+
     plotter.plot(coincident_12,plot_coincident=True)
     plotter.plot_index_atom(can)
 
