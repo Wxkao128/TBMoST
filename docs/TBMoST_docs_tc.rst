@@ -273,8 +273,7 @@ unitcell找到後我們可以將其畫出來並查看其幾何構造
     tb_eigenvalues, tb_eigenvectors = solver.solve_eig()
 
 .. note::
-
-    這是很關鍵的步驟，如果不想重複生成哈密頓量矩陣，我們可以將剛才的變數 `hopping_data`保存下來，之後計算的物理量需要用到哈密頓量時，我們就可以直接讀取該檔案內容，快速產生哈密頓量。
+    這是很關鍵的步驟，如果不想重複生成哈密頓量矩陣，我們可以將剛才的變數 hopping_data 保存下來，之後計算的物理量需要用到哈密頓量時，我們就可以直接讀取該檔案內容，快速產生哈密頓量。
 
 
 .. code-block:: python
@@ -302,75 +301,77 @@ k空間(Brillouin zone)格點
 
 以下是產生k點後顯示的訊息，`TBMoST`會輸出晶格的時空間向量和倒空間向量以及高對稱點$K(K')$點和$M$點的座標，另外在第一布里淵區中所有的格點數目也會在最下方一併顯示。
 
-```python
-Output:
-Real-space lattice vector:
-  9.284455   5.360382
- -9.284455   5.360382
+.. code-block:: python
 
-Reciprocal lattice vector:
-  0.338371   0.586076
- -0.338371   0.586076
-
-k_valleys:
-    0.0000     0.3907
-   -0.3384     0.1954
-   -0.3384    -0.1954
-   -0.0000    -0.3907
-    0.3384    -0.1954
-    0.3384     0.1954
-
-m_points:
-    0.1692     0.2930
-   -0.1692     0.2930
-   -0.3384    -0.0000
-   -0.1692    -0.2930
-    0.1692    -0.2930
-    0.3384     0.0000
-number of k-point in 1/6 reduced BZ: 22
-Input kpoints is 11
-Predicted number of K points: 97 
-   Actual number of K points: 97
-```
-
-
-
-#### 能帶結構
-
-##### 一維能帶結構計算
-
-為了計算一維能帶結構，我們使用`BandStructure`類別的`k_path_bnd`方法，我們使用預設路徑，即$K'-\Gamma-M-K-\Gamma $。
-
-```python
-from tbmost import BandStructure
-
-kdens = 200 
-k_num_near_hsp = 30  # number of k points near specific high symmetry point 
-bnd_str = BandStructure(angle=angle_dgr, name='TBG', can=can, plotb=True)
-AllK, k_path, Kpaths_coord = bnd_str.k_path_bnd(atomO, atomB, atomA, atomC, k_sec_num=4, kdens=kdens)
-
-
-tb_model_instance = TBModel(atomO, atomB, atomA, atomC, kx=k_path[:,0], ky=k_path[:,1], can=can, sp_zm=0, b_mag=0, beta_d=0, strain_m=1)
-hamiltonian = tb_model_instance.finalize_ham()  # Basic Hamiltonian matrix
-onsite_part = tb_model_instance.onsite_e_field(len(can[1]), 2, [0,0])  # onsite
-hamiltonian += onsite_part
-solver = EigenSolver(hamiltonian)
-#eigenvalues = solver.solve_eig(return_eigenvalues=True) #eigenvalues
-eigenvalues, eigenvectors = solver.solve_eig()  # return both eigenvalues and eigenvectors
-
-bnd_str.plot_tb_band(eigenvalues, AllK, Kpaths_coord, kdens=kdens, mode=1)
-```
-
-<div style="text-align: center;">
-    <img src="E:\download\TBG_1317_bnd.png" alt="hex_grid_plot" alt="Modeling of KTH UTBSOI MOSFET" style="zoom: 80%;" />
-    <p>K'和K點處的交叉為Dirac point，藍色和紅色的線條代表highest valance band 和 lowest conduction band</p>
-</div>
+    Output:
+    Real-space lattice vector:
+      9.284455   5.360382
+     -9.284455   5.360382
+    
+    Reciprocal lattice vector:
+      0.338371   0.586076
+     -0.338371   0.586076
+    
+    k_valleys:
+        0.0000     0.3907
+       -0.3384     0.1954
+       -0.3384    -0.1954
+       -0.0000    -0.3907
+        0.3384    -0.1954
+        0.3384     0.1954
+    
+    m_points:
+        0.1692     0.2930
+       -0.1692     0.2930
+       -0.3384    -0.0000
+       -0.1692    -0.2930
+        0.1692    -0.2930
+        0.3384     0.0000
+    number of k-point in 1/6 reduced BZ: 22
+    Input kpoints is 11
+    Predicted number of K points: 97 
+       Actual number of K points: 97
 
 
 
-##### 二維能帶結構
+能帶結構
+^^^^^^^^
 
-要計算二為能帶結構我們需要在布里淵區中均勻切出k點，因此需要使用前面介紹的`Moire_Brillouin_zone`類別。
+一維能帶結構計算
+**************
+
+為了計算一維能帶結構，我們使用 `BandStructure` 類別的 `k_path_bnd` 方法，我們使用預設路徑，即 $K'-\Gamma-M-K-\Gamma $ 。
+
+.. code-block:: python
+
+    from tbmost import BandStructure
+    
+    kdens = 200 
+    k_num_near_hsp = 30  # number of k points near specific high symmetry point 
+    bnd_str = BandStructure(angle=angle_dgr, name='TBG', can=can, plotb=True)
+    AllK, k_path, Kpaths_coord = bnd_str.k_path_bnd(atomO, atomB, atomA, atomC, k_sec_num=4, kdens=kdens)
+    
+    
+    tb_model_instance = TBModel(atomO, atomB, atomA, atomC, kx=k_path[:,0], ky=k_path[:,1], can=can, sp_zm=0, b_mag=0, beta_d=0, strain_m=1)
+    hamiltonian = tb_model_instance.finalize_ham()  # Basic Hamiltonian matrix
+    onsite_part = tb_model_instance.onsite_e_field(len(can[1]), 2, [0,0])  # onsite
+    hamiltonian += onsite_part
+    solver = EigenSolver(hamiltonian)
+    #eigenvalues = solver.solve_eig(return_eigenvalues=True) #eigenvalues
+    eigenvalues, eigenvectors = solver.solve_eig()  # return both eigenvalues and eigenvectors
+    
+    bnd_str.plot_tb_band(eigenvalues, AllK, Kpaths_coord, kdens=kdens, mode=1)
+
+
+.. image:: image/TBG_1317_bnd.png
+   :width: 50%
+   :align: center
+   :alt: K'和K點處的交叉為Dirac point，藍色和紅色的線條代表highest valance band 和 lowest conduction band
+
+二維能帶結構
+***********
+
+要計算二為能帶結構我們需要在布里淵區中均勻切出k點，因此需要使用前面介紹的 `Moire_Brillouin_zone` 類別。
 
 ```python
 # plot 2D contour band 
@@ -387,112 +388,124 @@ eigenvalues, eigenvectors = solver.solve_eig()  # return both eigenvalues and ei
 
 產生完k點後我們分別畫出 lowest conduction band 和 highest valance band 的二維構造圖。
 
-```python
-twod_bnd = bnd_str.plot_2b_contour_band(eigenvalues, kxx0, kyy0, 
-                                        bnd_index=37, save_npyz=False,
-                                        contour_line=0,plt_bnd=False)
+.. code-block:: python
 
-mbz.magic_mirror(twod_bnd, contour_value=None)
-```
-
-<img src="E:\download\TBG_1317_bnd37.png" alt="TBG_1317_bnd37" style="zoom: 80%;" />
-
-```python
-twod_bnd = bnd_str.plot_2b_contour_band(eigenvalues, kxx0, kyy0, 
-                                        bnd_index=38, save_npyz=False,
-                                        contour_line=0,plt_bnd=False)
-
-mbz.magic_mirror(twod_bnd, contour_value=None)
-```
-
-<img src="E:\download\TBG_1317_bnd38.png" alt="TBG_1317_bnd38" style="zoom: 80%;" />
+    twod_bnd = bnd_str.plot_2b_contour_band(eigenvalues, kxx0, kyy0, 
+                                            bnd_index=37, save_npyz=False,
+                                            contour_line=0,plt_bnd=False)
+    
+    mbz.magic_mirror(twod_bnd, contour_value=None)
 
 
-
-##### 三維能帶結構
-
-三維能帶結構可以幫助我們以另一個角度看能帶彎曲程度。利用計算二維能帶結構的k點，我們一樣選擇畫出lowest conduction band 和 highest valance band。
-
-```python
-# plot 3d band structure for specific bands
-bnd_str.plot_3b_band(solve_eig=eigenvalues, AllKx=kxx0, AllKy=kyy0, 
-                     bnd_indices=[37,38], save_npyz=False)
-```
-
-<div style="display: flex; justify-content: center; gap: 20px;">
-    <div style="text-align: center;">
-        <img src="E:\download\TBG_1317_3Dbnd.png" alt="MOSFET Model" style="zoom: 140%;" />
-        <!-- 这是一个注释 -->
-        <!--<p><span style="font-style: normal;">圖 1：次臨界電流（來源：Semantics Scholar）</span></p>-->
-    </div>
-    <div style="text-align: center;">
-        <img src="C:\Users\User\TBG_1317_3Dbnd2.png" alt="MOSFET OSCM" style="zoom: 100%;" />
-        <!--<p><span style="font-style: normal;">圖 2：MOSFET OSCM 模型（來源：Kookmin University）</span></p>-->
-    </div>
-</div>
-<p style="text-align: center;"><span style="font-style: normal;">三維能帶圖，左右顯示不同方向的觀看結果。</span></p>
+.. image:: image/TBG_1317_bnd37.png
+   :width: 50%
+   :align: center
 
 
+.. code-block:: python
 
-#### 費米面
+    twod_bnd = bnd_str.plot_2b_contour_band(eigenvalues, kxx0, kyy0, 
+                                            bnd_index=38, save_npyz=False,
+                                            contour_line=0,plt_bnd=False)
+    
+    mbz.magic_mirror(twod_bnd, contour_value=None)
+
+
+.. image:: image/TBG_1317_bnd38.png
+   :width: 50%
+   :align: center
+
+三維能帶結構
+***********
+
+三維能帶結構可以幫助我們以另一個角度看能帶彎曲程度。利用計算二維能帶結構的k點，我們一樣選擇畫出 lowest conduction band 和 highest valance band。
+
+.. code-block:: python
+
+    # plot 3d band structure for specific bands
+    bnd_str.plot_3b_band(solve_eig=eigenvalues, AllKx=kxx0, AllKy=kyy0, 
+                         bnd_indices=[37,38], save_npyz=False)
+
+
+.. raw:: html
+
+   <div style="display: flex; justify-content: space-around;">
+       <div style="text-align: center;">
+           <img src="image/TBG_1317_3Dbnd.png" alt="Image 1" style="width: 45%;">
+       </div>
+       <div style="text-align: center;">
+           <img src="image/TBG_1317_3Dbnd2.png" alt="Image 2" style="width: 45%;">
+       </div>
+   </div>
+   <p style="text-align: center;">三維能帶圖，左右顯示不同方向的觀看結果。</p>
+
+
+
+費米面
+^^^^^^
 
 當對材料摻雜電子或電洞而移動其費米面時，它所切出的能帶產生之圖樣就是費米面。
 
-```python
-# plot Fermi surface(Fermi contour)
-fermi_surf_data = bnd_str.Fermi_surface(eigenvalues, kxx0, kyy0, 
-                                        e_fermi=1.3,
-                                        plt_fs=False, n_grid=50)
+.. code-block:: python
 
-mbz.magic_mirror(fermi_surf_data, contour_value=1.3)
-
-# plot Moire Brillouin zone boundary for Fermi contour
-import contextlib
-import os
-with contextlib.redirect_stdout(open(os.devnull, 'w')):
-    mbz2 = Moire_Brillouin_zone(atomO, atomB, atomA, atomC)
-    mbz2.hexagon_bz(kpoints=3, plot_bz=False, plot_bzline_only=True)
-```
-
-<div style="text-align: center;">
-    <img src="E:\download\TBG_1317_FS_1.1eV.png" alt="hex_grid_plot" alt="Modeling of KTH UTBSOI MOSFET" style="zoom: 70%;" />
-    <p>費米面，藍色線條為第一布里淵區之邊界。</p>
-</div>
+    # plot Fermi surface(Fermi contour)
+    fermi_surf_data = bnd_str.Fermi_surface(eigenvalues, kxx0, kyy0, 
+                                            e_fermi=1.3,
+                                            plt_fs=False, n_grid=50)
+    
+    mbz.magic_mirror(fermi_surf_data, contour_value=1.3)
+    
+    # plot Moire Brillouin zone boundary for Fermi contour
+    import contextlib
+    import os
+    with contextlib.redirect_stdout(open(os.devnull, 'w')):
+        mbz2 = Moire_Brillouin_zone(atomO, atomB, atomA, atomC)
+        mbz2.hexagon_bz(kpoints=3, plot_bz=False, plot_bzline_only=True)
 
 
+.. image:: image/TBG_1317_FS_1.1eV.png
+   :width: 50%
+   :align: center
+   :alt: 費米面，藍色線條為第一布里淵區之邊界。
 
-#### 譜函數
+
+
+譜函數
+^^^^^^
 
 譜函數常用來描述系統的電子結構與激發性質。具體來說，譜函數通常是格林函數的自伴隨部分的頻率依賴函數，表徵了系統對外部擾動的響應。
-$$
-A(k,\omega)=-\frac{1}{\pi}\text{Im}[G(k,\omega)]
-$$
 
-```python
-e_grid = 200
-fe_array = np.linspace(-5,5,e_grid)
+.. math::
 
-bnd_array = np.array([13,14,15,16])
-site_array = np.array([7,8])
+    A(k,\omega)=-\frac{1}{\pi}\text{Im}[G(k,\omega)]
 
-# plot the spectral function contributed only by site 8 and 9
-sf_array1 = bnd_str.spectral_function_Local(energy_array=fe_array, 
-                                            solve_eig=eigenvalues, 
-                                            solve_vec=eigenvectors,
-                                            delta=0.03, site_list=site_array,
-                                            bnd_list=None)
-# plot the total spectral function 
-sf_array2 = bnd_str.spectral_function_Delta(energy_array=fe_array, 
-                                            solve_eig=eigenvalues,
-                                            delta=0.03)
 
-bnd_str.plot_spectral_function(sf_array1, x_ticks_coord=None,                     
-                               x_new_ticks=None, save_fig=False,
-                               site_list=site_array)
+.. code-block:: python
 
-bnd_str.plot_spectral_function(sf_array2, x_ticks_coord=None,                     
-                               x_new_ticks=None, save_fig=False)
-```
+    e_grid = 200
+    fe_array = np.linspace(-5,5,e_grid)
+    
+    bnd_array = np.array([13,14,15,16])
+    site_array = np.array([7,8])
+    
+    # plot the spectral function contributed only by site 8 and 9
+    sf_array1 = bnd_str.spectral_function_Local(energy_array=fe_array, 
+                                                solve_eig=eigenvalues, 
+                                                solve_vec=eigenvectors,
+                                                delta=0.03, site_list=site_array,
+                                                bnd_list=None)
+    # plot the total spectral function 
+    sf_array2 = bnd_str.spectral_function_Delta(energy_array=fe_array, 
+                                                solve_eig=eigenvalues,
+                                                delta=0.03)
+    
+    bnd_str.plot_spectral_function(sf_array1, x_ticks_coord=None,                     
+                                   x_new_ticks=None, save_fig=False,
+                                   site_list=site_array)
+    
+    bnd_str.plot_spectral_function(sf_array2, x_ticks_coord=None,                     
+                                   x_new_ticks=None, save_fig=False)
+
 
 <div style="display: flex; justify-content: center; gap: 20px;">
     <div style="text-align: center;">
