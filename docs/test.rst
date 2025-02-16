@@ -29,3 +29,6 @@
         E = 1 \times (3 \times 10^8)^2 = 9 \times 10^{16} \, \text{J}
 
 這將是一個巨大的能量。
+
+這是行內程式碼：`print("Hello World")`。
+
