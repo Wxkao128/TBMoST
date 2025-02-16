@@ -368,23 +368,24 @@ k空間(Brillouin zone)格點
    :align: center
    :alt: K'和K點處的交叉為Dirac point，藍色和紅色的線條代表highest valance band 和 lowest conduction band
 
+
 二維能帶結構
 ***********
 
 要計算二為能帶結構我們需要在布里淵區中均勻切出k點，因此需要使用前面介紹的 `Moire_Brillouin_zone` 類別。
 
-```python
-# plot 2D contour band 
-kxx0, kyy0, a1_norm, a2_norm = mbz.hexagon_bz(kpoints=159, plot_bz=False,
-                                              bz_type='redbz12',
-                                              plot_redbz_12=False)
+.. code-block:: python
 
-tb_model_instance = TBModel(atomO, atomB, atomA, atomC, kx=kxx0, ky=kyy0, 
-                            can=can, sp_zm=0, b_mag=0, beta_d=0, strain_m=1)
-hamiltonian = tb_model_instance.finalize_ham()  # Basic Hamiltonian matrix
-solver = EigenSolver(hamiltonian)
-eigenvalues, eigenvectors = solver.solve_eig()  # return both eigenvalues and eigenvectors
-```
+    # plot 2D contour band 
+    kxx0, kyy0, a1_norm, a2_norm = mbz.hexagon_bz(kpoints=159, plot_bz=False,
+                                                  bz_type='redbz12',
+                                                  plot_redbz_12=False)
+    
+    tb_model_instance = TBModel(atomO, atomB, atomA, atomC, kx=kxx0, ky=kyy0, 
+                                can=can, sp_zm=0, b_mag=0, beta_d=0, strain_m=1)
+    hamiltonian = tb_model_instance.finalize_ham()  # Basic Hamiltonian matrix
+    solver = EigenSolver(hamiltonian)
+    eigenvalues, eigenvectors = solver.solve_eig()  # return both eigenvalues and eigenvectors
 
 產生完k點後我們分別畫出 lowest conduction band 和 highest valance band 的二維構造圖。
 
@@ -415,6 +416,7 @@ eigenvalues, eigenvectors = solver.solve_eig()  # return both eigenvalues and ei
    :width: 50%
    :align: center
 
+
 三維能帶結構
 ***********
 
@@ -431,10 +433,10 @@ eigenvalues, eigenvectors = solver.solve_eig()  # return both eigenvalues and ei
 
    <div style="display: flex; justify-content: space-around;">
        <div style="text-align: center;">
-           <img src="image/TBG_1317_3Dbnd.png" alt="Image 1" style="width: 45%;">
+           <img src="image/TBG_1317_3Dbnd.png" alt="Image 1" style="width: 30%;">
        </div>
        <div style="text-align: center;">
-           <img src="image/TBG_1317_3Dbnd2.png" alt="Image 2" style="width: 45%;">
+           <img src="image/TBG_1317_3Dbnd2.png" alt="Image 2" style="width: 30%;">
        </div>
    </div>
    <p style="text-align: center;">三維能帶圖，左右顯示不同方向的觀看結果。</p>
@@ -507,100 +509,109 @@ eigenvalues, eigenvectors = solver.solve_eig()  # return both eigenvalues and ei
                                    x_new_ticks=None, save_fig=False)
 
 
-<div style="display: flex; justify-content: center; gap: 20px;">
-    <div style="text-align: center;">
-        <img src="E:\download\TBG_1317_LSP.png" alt="MOSFET Model" style="zoom: 100%;" />
-        <!-- 这是一个注释 -->
-        <!--<p><span style="font-style: normal;">圖 1：次臨界電流（來源：Semantics Scholar）</span></p>-->
-    </div>
-    <div style="text-align: center;">
-        <img src="E:\download\TBG_1317_TSP.png" alt="MOSFET OSCM" style="zoom: 100%;" />
-        <!--<p><span style="font-style: normal;">圖 2：MOSFET OSCM 模型（來源：Kookmin University）</span></p>-->
-    </div>
-</div>
-<p style="text-align: center;"><span style="font-style: normal;">左圖為選擇第8和第9個原子計算之譜函數；右圖則為選擇所有原子的作圖，可以看到兩張圖在數值上的差異。</span></p>
+.. raw:: html
+
+   <div style="display: flex; justify-content: space-around;">
+       <div style="text-align: center;">
+           <img src="image/TBG_1317_LSP.png" alt="Image 1" style="width: 45%;">
+       </div>
+       <div style="text-align: center;">
+           <img src="image/TBG_1317_TSP.png" alt="Image 2" style="width: 45%;">
+       </div>
+   </div>
+   <p style="text-align: center;">左圖為選擇第8和第9個原子計算之譜函數；右圖則為選擇所有原子的作圖，可以看到兩張圖在數值上的差異。</p>
 
 
 
-#### 態密度
+
+態密度
+^^^^^^
 
 態密度（DOS）描述了在給定能量範圍內，電子可填充的量子態的數量。它反映了材料的電子結構，並對材料的導電性、光學性質和其他電子性質至關重要。高態密度的區域表示電子在該能量附近具有較多可填充的態，而低態密度則表示電子態較少甚至不存在。局域態密度 (Local Density of States, LDOS) 則是 DOS 在空間上的分佈，表示在特定空間位置上的電子態密度，有助於分析表面態、邊緣態或局部能級特性。
 
-##### 總態密度
+總態密度
+*******
 
 我們先來示範系統整體的態密度，我們將採用兩個不同計算方法求得系統總態密度。以下是 Lorentzian broading method 的公式依據:
-$$
-DOS(\omega)=\frac{1}{\pi}\sum_{k,n}\frac{\frac{\delta}{2}}{(\omega-E_{n}(k))^2+(\frac{\delta}{2})^2}
-$$
+
+.. math::
+
+    DOS(\omega)=\frac{1}{\pi}\sum_{k,n}\frac{\frac{\delta}{2}}{(\omega-E_{n}(k))^2+(\frac{\delta}{2})^2}
+
 我們需要有從之前計算求得的特徵值和特徵向量作為參數輸入，以及這些特徵直對應的k點座標。
 
-```python
-from tbmost import DensityOfState
-dos = DensityOfState(solve_eig=eigenvalues, solve_vec=eigenvectors,
-                     AllKx=kxx0, AllKy=kyy0, e_range=[-5., 5.])
+.. code-block:: python
 
-# Total DOS
-dos.total_dos_Hist(bins=200, rot_dos=False)
-dos.total_dos_Delta(delta=0.025, rot_dos=False, e_grid=200)
-#dos.total_dos_GF(ham_matrix=hamiltonian, rot_dos=False, e_grid=200)
-```
+    from tbmost import DensityOfState
+    dos = DensityOfState(solve_eig=eigenvalues, solve_vec=eigenvectors,
+                         AllKx=kxx0, AllKy=kyy0, e_range=[-5., 5.])
+    
+    # Total DOS
+    dos.total_dos_Hist(bins=200, rot_dos=False)
+    dos.total_dos_Delta(delta=0.025, rot_dos=False, e_grid=200)
+    #dos.total_dos_GF(ham_matrix=hamiltonian, rot_dos=False, e_grid=200)
 
-<div style="display: flex; justify-content: center; gap: 20px;">
-    <div style="text-align: center;">
-        <img src="C:\Users\User\TBG_1317_dos(hist).png" alt="MOSFET Model" style="zoom: 100%;" />
-        <!-- 这是一个注释 -->
-        <!--<p><span style="font-style: normal;">圖 1：次臨界電流（來源：Semantics Scholar）</span></p>-->
-    </div>
-    <div style="text-align: center;">
-        <img src="C:\Users\User\TBG_1317_dos(Delta).png" alt="MOSFET OSCM" style="zoom: 100%;" />
-        <!--<p><span style="font-style: normal;">圖 2：MOSFET OSCM 模型（來源：Kookmin University）</span></p>-->
-    </div>
-</div>
-<p style="text-align: center;"><span style="font-style: normal;">左圖為使用值方計算的總態密度，右圖則是利用Lorentzian broading method求得的總態密度。</span></p>
 
-可以看到這兩個方法得到的態密度數值和曲線非常接近，但仍有微小差異，這取決於直方圖使用的數量，我們可以調整參數`bins`，另外對於使用 Lorentzian broading method 求得的總態密度可以使用`total_dos_Delta`方法中的參數`delta`去控制展寬，以及‵`e_grid`去控制能量格點的數量。
+.. raw:: html
 
-##### 局域態密度
+   <div style="display: flex; justify-content: space-around;">
+       <div style="text-align: center;">
+           <img src="image/TBG_1317_dos(hist).png" alt="Image 1" style="width: 20%;">
+       </div>
+       <div style="text-align: center;">
+           <img src="image/TBG_1317_dos(Delta).png" alt="Image 2" style="width: 20%;">
+       </div>
+   </div>
+   <p style="text-align: center;">左圖為使用值方計算的總態密度，右圖則是利用Lorentzian broading method求得的總態密度。</p>
 
+可以看到這兩個方法得到的態密度數值和曲線非常接近，但仍有微小差異，這取決於直方圖使用的數量，我們可以調整參數 `bins`，另外對於使用 Lorentzian broading method 求得的總態密度可以使用 `total_dos_Delta` 方法中的參數 `delta` 去控制展寬，以及 `e_grid` 去控制能量格點的數量。
+
+局域態密度
+*********
 我們可以選擇性的察看第幾個原子對於系統態密度的貢獻，以下的範例中我們選以四顆原子，分別是編號$0,1,2$以及$25$的原子。
 
-```python
-# LDOS
-site_arr = np.array([0,1,2,25])
-dos.ldos(site_list=site_arr, plot_ldos=True, rot_dos=False, e_grid=200)
+.. code-block:: python
 
-site_arr = np.array([7,9,15,22])
-dos.ldos(site_list=site_arr, plot_ldos=True, rot_dos=False, e_grid=200)
-```
-
-<div style="display: flex; justify-content: center; gap: 20px;">
-    <div style="text-align: center;">
-        <img src="C:\Users\User\TBG_1317_ldos.png" alt="MOSFET Model" style="zoom: 100%;" />
-        <!-- 这是一个注释 -->
-        <!--<p><span style="font-style: normal;">圖 1：次臨界電流（來源：Semantics Scholar）</span></p>-->
-    </div>
-    <div style="text-align: center;">
-        <img src="C:\Users\User\TBG_1317_ldos2.png" alt="MOSFET OSCM" style="zoom: 100%;" />
-        <!--<p><span style="font-style: normal;">圖 2：MOSFET OSCM 模型（來源：Kookmin University）</span></p>-->
-    </div>
-</div>
-<p style="text-align: center;"><span style="font-style: normal;">可以看到在投影到不同原子對態密度的貢獻時，它們的數值都略有差異</span></p>
-
-==注意:== 參數`site_list`需要以陣列的形式輸入資料，元素數量不限制，只要原子編號不超過矩陣維度即可，這邊選擇都查看四個原子。另外輸入的參數為原子編號，因為`python`的習慣是以$0$開始，而在圖片上返回的則是顯示這些編號中他們對應的是第幾個原子，因此數字會相差$1$。如果想要查看欲投影之原子編號可使用以下指令:
-
-```python
-plotter.plot(coincident_12,plot_coincident=True)
-plotter.plot_index_atom(can)
-```
+    # LDOS
+    site_arr = np.array([0,1,2,25])
+    dos.ldos(site_list=site_arr, plot_ldos=True, rot_dos=False, e_grid=200)
+    
+    site_arr = np.array([7,9,15,22])
+    dos.ldos(site_list=site_arr, plot_ldos=True, rot_dos=False, e_grid=200)
 
 
+.. raw:: html
 
-#### 電導率
+   <div style="display: flex; justify-content: space-around;">
+       <div style="text-align: center;">
+           <img src="image/TBG_1317_ldos.png" alt="Image 1" style="width: 45%;">
+       </div>
+       <div style="text-align: center;">
+           <img src="image/TBG_1317_ldos2.png" alt="Image 2" style="width: 45%;">
+       </div>
+   </div>
+   <p style="text-align: center;">可以看到在投影到不同原子對態密度的貢獻時，它們的數值都略有差異</p>
 
-在`TBMoST`中，動態電導率是基於 **Kubo 公式 (Kubo Formula)** 計算的，它描述了材料在外加電場下的電子響應，適用於分析頻率相關的電學性質。
-$$
-\sigma_{\alpha\beta}(\omega)=\frac{i\hbar}{V}\sum_{m,n}\frac{f(E_m)-f(E_n)}{E_m-E_n}\frac{\bra{m}j_{\alpha}\ket{n}\bra{n}j_{\beta}\ket{m}}{E_m-E_n+\hbar\omega+i\eta}
-$$
+
+.. 注意::
+    參數 `site_list` 需要以陣列的形式輸入資料，元素數量不限制，只要原子編號不超過矩陣維度即可，這邊選擇都查看四個原子。另外輸入的參數為原子編號，因為 `python` 的習慣是以$0$開始，而在圖片上返回的則是顯示這些編號中他們對應的是第幾個原子，因此數字會相差 $1$。
+
+如果想要查看欲投影之原子編號可使用以下指令:
+
+.. code-block:: python
+    plotter.plot(coincident_12,plot_coincident=True)
+    plotter.plot_index_atom(can)
+
+
+
+電導率
+^^^^^^
+
+在 `TBMoST` 中，動態電導率是基於 **Kubo 公式 (Kubo Formula)** 計算的，它描述了材料在外加電場下的電子響應，適用於分析頻率相關的電學性質。
+
+.. math::
+    \sigma_{\alpha\beta}(\omega)=\frac{i\hbar}{V}\sum_{m,n}\frac{f(E_m)-f(E_n)}{E_m-E_n}\frac{\bra{m}j_{\alpha}\ket{n}\bra{n}j_{\beta}\ket{m}}{E_m-E_n+\hbar\omega+i\eta}
+
 其中：
 
 - $\sigma_{\alpha\beta}(\omega)$ 為頻率 $\omega$ 下的電導率張量分量，
@@ -609,80 +620,92 @@ $$
 - $j_{\alpha} = -e v_{\alpha}$ 為電流密度算符，$v_{\alpha}$ 是速度算符，
 - $V$ 是體積，$\eta$ 是小的展寬參數以確保數值穩定。
 
-在操作上，我們一樣需要輸入特徵值和特徵向量以及這些特徵值對應的k點座標，由於我們選擇的張量分量是$xx$也就是兩個電流密度算符都是$x$方向的，因次在參數`direction`需要輸入`xx`。在使用`dynamical_conductivity`方法時，我們可以選擇計算電流密度矩陣的方式，藉由參數`method`可以選擇，其中`method=1`代表使用差分進行計算，需要控制`delta`調整差分的精度；如果使用`method=2`則是用解析微分形式後的結果進行計算。
+在操作上，我們一樣需要輸入特徵值和特徵向量以及這些特徵值對應的k點座標，由於我們選擇的張量分量是 $xx$ 也就是兩個電流密度算符都是 $x$ 方向的，因次在參數 `direction` 需要輸入 `xx`。在使用 `dynamical_conductivity` 方法時，我們可以選擇計算電流密度矩陣的方式，藉由參數 `method` 可以選擇，其中 `method=1` 代表使用差分進行計算，需要控制 `delta` 調整差分的精度；如果使用 `method=2` 則是用解析微分形式後的結果進行計算。
 
-```python
-from tbmost import Optical_conductivity
+.. code-block:: python
+
+    from tbmost import Optical_conductivity
+        
+    # dynamical conductivity
+    oc = Optical_conductivity(solve_eig=eigenvalues, solve_vec=eigenvectors,
+                              ham_matrix=hamiltonian, AllKx=kxx0, AllKy=kyy0,
+                              e_range=[0.1,6], direction='xx')
     
-# dynamical conductivity
-oc = Optical_conductivity(solve_eig=eigenvalues, solve_vec=eigenvectors,
-                          ham_matrix=hamiltonian, AllKx=kxx0, AllKy=kyy0,
-                          e_range=[0.1,6], direction='xx')
+    oc.dynamical_conductivity(method=1, e_grid=500, delta=1e-8, eta=1e-2*3,
+                              data=loaded_array, num_k=kxx0.shape[0],
+                              volumn_spcell=cell_info[0])
 
-oc.dynamical_conductivity(method=1, e_grid=500, delta=1e-8, eta=1e-2*3,
-                          data=loaded_array, num_k=kxx0.shape[0],
-                          volumn_spcell=cell_info[0])
-```
 
-<img src="C:\Users\User\TBG_1317_dc.png" alt="TBG_1317_dc" style="zoom:67%;" />
+.. image:: image/TBG_1317_dc.png
+   :width: 50%
+   :align: center
 
 
 
-#### 拓樸性質
+拓樸性質
+^^^^^^
 
-- 在**拓撲絕緣體**或**鐵磁金屬**中，貝里曲率導致電子在無外加磁場的情況下仍能產生橫向電流，這就是**異常霍爾效應（AHE）**。
+- 在拓撲絕緣體或鐵磁金屬中，貝里曲率導致電子在無外加磁場的情況下仍能產生橫向電流，這就是異常霍爾效應（AHE）。
 
-- 通常可透過動量空間積分貝里曲率來計算**陳數（Chern number）**： 
-  $$
-  C_n=\frac{1}{2\pi}\int_{BZ}\Omega_{n}d^2k
-  $$
-  陳數是一個**拓撲不變量**，用來區分不同的拓撲相。
+- 通常可透過動量空間積分貝里曲率來計算陳數（Chern number）： 
 
-- 貝里曲率決定了一個材料是否為**拓撲絕緣體**或**拓撲半金屬**。
-- 在某些材料（如 Weyl 半金屬）中，**貝里曲率源（Berry Curvature Monopole）**對應於 Weyl 點（Weyl Nodes），這些點類似於動量空間中的磁單極（monopole）。
-- 貝里曲率與**非線性光電效應**（如光生霍爾效應）有關，在拓撲材料中，非線性光學響應可用來探測貝里曲率。
+  .. math::
 
-在 **TBMoST** 中，使用者可以透過 tight binding 模型計算布里淵區中的貝里曲率分佈。我們選擇計算 highest valance band 的貝里曲率，這可以由參數`select_bnd_index`控制。
+      C_n=\frac{1}{2\pi}\int_{BZ}\Omega_{n}d^2k
+  
+  陳數是一個拓撲不變量，用來區分不同的拓撲相。
 
-```python
-from tbmost import Topology
+- 貝里曲率決定了一個材料是否為拓撲絕緣體或拓撲半金屬。
+- 在某些材料（如 Weyl 半金屬）中，貝里曲率源（Berry Curvature Monopole）對應於 Weyl 點（Weyl Nodes），這些點類似於動量空間中的磁單極（monopole）。
+- 貝里曲率與非線性光電效應（如光生霍爾效應）有關，在拓撲材料中，非線性光學響應可用來探測貝里曲率。
 
-topo = Topology(solve_eig=eigenvalues, solve_vec=eigenvectors, 
-                AllKx=kxx0, AllKy=kyy0, mode='plane')
+在 `TBMoST` 中，使用者可以透過 tight binding 模型計算布里淵區中的貝里曲率分佈。我們選擇計算 highest valance band 的貝里曲率，這可以由參數 `select_bnd_index` 控制。
 
-berry_curv, chern_number = topo.berry_curvature_basic(
-                                     data=loaded_array, method=1, 
-                                     select_bnd_index=37,
-                                     plt_bc=True, contour_line=0)
+.. code-block:: python
 
-mbz.magic_mirror(berry_curv, contour_value=None)
-```
+    from tbmost import Topology
+    
+    topo = Topology(solve_eig=eigenvalues, solve_vec=eigenvectors, 
+                    AllKx=kxx0, AllKy=kyy0, mode='plane')
+    
+    berry_curv, chern_number = topo.berry_curvature_basic(
+                                         data=loaded_array, method=1, 
+                                         select_bnd_index=37,
+                                         plt_bc=True, contour_line=0)
+    
+    mbz.magic_mirror(berry_curv, contour_value=None)
 
-<img src="C:\Users\User\TBG_1317_bnd37.png" alt="TBG_1317_bnd37" style="zoom:67%;" />
 
-因為旋轉雙層石墨烯在大角度下不是拓樸絕緣體，因此其貝里曲率非常小($10^{-21}$)，我們可以忽略不計。
+.. image:: image/TBG_1317_bc37.png
+   :width: 50%
+   :align: center
 
-在拓樸絕緣體 (如 Chern 絕緣體、量子霍爾效應) 中，霍爾電導率可由能帶的**Chern number**決定：
-$$
-\sigma_{\alpha\beta}=\frac{e^2}{h}\sum_nC_n
-$$
+因為旋轉雙層石墨烯在大角度下不是拓樸絕緣體，因此其貝里曲率非常小( $10^{-21}$ )，我們可以忽略不計。
+
+在拓樸絕緣體 (如 Chern 絕緣體、量子霍爾效應) 中，霍爾電導率可由能帶的陳數決定：
+
+.. math::
+
+    \sigma_{\alpha\beta}=\frac{e^2}{h}\sum_nC_n
+
 其中， 是第 $n$ 條能帶的 Chern number，$e^2/h$ 是量子化電導最小的數值。而 Chern number 則可透過(5)得到，在前面的計算中，我們透過變數‵chern_number`得到`berry_curvature_basic`方法的回傳值。
 
-```python
-print(chern_number)
+.. code-block:: python
 
-Output:
--9.615313668486078e-21
-```
+    print(chern_number)
+
+    Output:
+    -9.615313668486078e-21
 
 透過(6)，我們可以得到這個能帶貢獻出的霍爾電導率:
 
-```python
-from scipy.constants import e, h
-print(e**2/h*chern_number)
+.. code-block:: python
 
-Output:
--3.725016615742094e-25
-```
+    from scipy.constants import e, h
+    print(e**2/h*chern_number)
+    
+    Output:
+    -3.725016615742094e-25
+
 
 由此可以知道大角度的旋轉雙層石墨烯在不加外場或其他效應的影響下並非拓樸絕緣體。
