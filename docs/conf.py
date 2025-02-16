@@ -11,4 +11,4 @@ extensions = [
     'sphinx.ext.napoleon',
 ]
 
-language = 'zh'
+#language = 'zh'
