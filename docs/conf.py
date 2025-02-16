@@ -16,15 +16,17 @@ latex_elements = {
     'preamble': r'\usepackage{braket}',  # 加載 braket 宏包
 }
 
-html_theme_options = {
-    'mathjax_path': 'https://cdn.jsdelivr.net/npm/mathjax@2/es5/tex-mml-chtml.js',
-}
 
-mathjax_config = {
+mathjax3_config = {
     "TeX": {
         "Macros": {
-            "bra": r"\langle",  # 定義 bra 符號
-            "ket": r"\rangle",  # 定義 ket 符號
+            "bra": r"\\langle",
+            "ket": r"\\rangle",
         }
     }
+}
+
+# 設定 MathJax 3 的 CDN 路徑
+html_theme_options = {
+    'mathjax_path': 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
 }
