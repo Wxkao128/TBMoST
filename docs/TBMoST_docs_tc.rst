@@ -36,30 +36,30 @@ TBMoST 具備 **高度模組化**、**計算效率高** 及 **直觀易用的 AP
    * 局域態密度 (Local DOS, LDOS)
    * 三種計算方式:
       * 普通直方圖計算 (Histogram Method)
-        * 格林函數法 (Green's Function Method)
-        * Lorentzian Broadening Method
+      * 格林函數法 (Green's Function Method)
+      * Lorentzian Broadening Method
 
 * 3. 譜函數 (Spectral Function)
-     * 總譜函數 (Total Spectral Function)
-     * 局域譜函數 (Local Spectral Function, LSF)
-     * 兩種計算方式:
-        * 格林函數法 (Green's Function Method)
-        * Lorentzian Broadening Method
+   * 總譜函數 (Total Spectral Function)
+   * 局域譜函數 (Local Spectral Function, LSF)
+   * 兩種計算方式:
+      * 格林函數法 (Green's Function Method)
+      * Lorentzian Broadening Method
 
 * 4. 費米面 (Fermi Surface / Fermi Contour)
-     * 二維費米輪廓
+   * 二維費米輪廓
 
 * 5. 電導率 (Optical Conductivity)
-     * 頻率相依電導率 (dynamical Conductivity)
-     * 靜態電導率 (DC Conductivity)
+   * 頻率相依電導率 (dynamical Conductivity)
+   * 靜態電導率 (DC Conductivity)
 
 * 6. 拓撲性質 (Topological Properties)
-     * 貝里曲率 (Berry Curvature)
-     * 陳數 (Chern Number)
-     * 霍爾電導 (Hall Conductivity)
+   * 貝里曲率 (Berry Curvature)
+   * 陳數 (Chern Number)
+   * 霍爾電導 (Hall Conductivity)
 
 * 7. 結構生成 (POSCAR格式)
-     * 輸出第一原理計算軟體`VASP`的結構檔案`POSCAR`
+   * 輸出第一原理計算軟體`VASP`的結構檔案`POSCAR`
 
 
 
