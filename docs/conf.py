@@ -13,4 +13,8 @@ extensions = [
     'sphinx.ext.napoleon',
 ]
 
+html_theme_options = {
+    'mathjax_path': 'https://cdn.jsdelivr.net/npm/mathjax@2/es5/tex-mml-chtml.js',
+}
+
 #language = 'zh'
