@@ -554,15 +554,12 @@ k空間(Brillouin zone)格點
 
 .. raw:: html
 
-   <div style="display: flex; justify-content: space-around;">
-       <div style="text-align: center;">
-           <img src="image/TBG_1317_dos(hist).png" alt="Image 1" style="width: 20%;">
-       </div>
-       <div style="text-align: center;">
-           <img src="image/TBG_1317_dos(Delta).png" alt="Image 2" style="width: 20%;">
-       </div>
+   <div style="text-align: center;">
+       <span style="display: inline-block; width: 45%;"><img src="image/TBG_1317_dos(hist).png" alt="Image 1" style="width: 100%;"></span>
+       <span style="display: inline-block; width: 45%;"><img src="image/TBG_1317_dos(Delta).png" alt="Image 2" style="width: 100%;"></span>
    </div>
-   <p style="text-align: center;">左圖為使用值方計算的總態密度，右圖則是利用Lorentzian broading method求得的總態密度。</p>
+
+   <p style="text-align: center; font-style: italic;">左圖為使用值方計算的總態密度，右圖則是利用Lorentzian broading method求得的總態密度。</p>
 
 可以看到這兩個方法得到的態密度數值和曲線非常接近，但仍有微小差異，這取決於直方圖使用的數量，我們可以調整參數 `bins`，另外對於使用 Lorentzian broading method 求得的總態密度可以使用 `total_dos_Delta` 方法中的參數 `delta` 去控制展寬，以及 `e_grid` 去控制能量格點的數量。
 
@@ -594,7 +591,8 @@ k空間(Brillouin zone)格點
 
 
 .. 注意::
-    參數 `site_list` 需要以陣列的形式輸入資料，元素數量不限制，只要原子編號不超過矩陣維度即可，這邊選擇都查看四個原子。另外輸入的參數為原子編號，因為 `python` 的習慣是以$0$開始，而在圖片上返回的則是顯示這些編號中他們對應的是第幾個原子，因此數字會相差 $1$。
+    參數 `site_list` 需要以陣列的形式輸入資料，元素數量不限制，只要原子編號不超過矩陣維度即可，這邊選擇都查看四個原子。
+    另外輸入的參數為原子編號，因為 `python` 的習慣是以$0$開始，而在圖片上返回的則是顯示這些編號中他們對應的是第幾個原子，因此數字會相差 $1$。
 
 如果想要查看欲投影之原子編號可使用以下指令:
 
