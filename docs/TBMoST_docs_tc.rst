@@ -555,8 +555,8 @@ k空間(Brillouin zone)格點
 .. raw:: html
 
    <div style="text-align: center;">
-       <span style="display: inline-block; width: 45%;"><img src="image/TBG_1317_dos(hist).png" alt="Image 1" style="width: 100%;"></span>
-       <span style="display: inline-block; width: 45%;"><img src="image/TBG_1317_dos(Delta).png" alt="Image 2" style="width: 100%;"></span>
+       <span style="display: inline-block; width: 30%;"><img src="image/TBG_1317_dos(hist).png" alt="Image 1" style="width: 100%;"></span>
+       <span style="display: inline-block; width: 30%;"><img src="image/TBG_1317_dos(Delta).png" alt="Image 2" style="width: 100%;"></span>
    </div>
 
    <p style="text-align: center; font-style: italic;">左圖為使用值方計算的總態密度，右圖則是利用Lorentzian broading method求得的總態密度。</p>
