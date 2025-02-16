@@ -36,7 +36,7 @@ TBMoST 具備 **高度模組化**、**計算效率高** 及 **直觀易用的 AP
   * 三種計算方式:
      * 普通直方圖計算 (Histogram Method)
      * 格林函數法 (Green's Function Method)
-  * Lorentzian Broadening Method
+     * Lorentzian Broadening Method
 
 * 3. 譜函數 (Spectral Function)
   * 總譜函數 (Total Spectral Function)
