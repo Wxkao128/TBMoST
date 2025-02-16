@@ -95,50 +95,51 @@ TBMoST 具備 **高度模組化**、**計算效率高** 及 **直觀易用的 AP
 導入套件
 ^^^^^^^^
 首先，我們先導入基本的套件:
+
 .. code-block:: python
 
     import numpy as np
-import matplotlib.pyplot as plt
-import tbmost
+    import matplotlib.pyplot as plt
+    import tbmost
 
 建立結構
 ^^^^^^^^
 
 接著我們來建立摩爾超晶格，我們將以旋轉雙層石墨烯為例(twisted bilayer graphene)，因此用到的晶格相關參數都會以石墨烯為準，也就是預設值。
 
-旋轉雙層石墨烯要形成週期結構，期兩層間的旋轉角度要滿足如下公式，其中$m$、$n$是互質的正整數。
-$$
-\cos{\theta}=\frac{m^2+n^2+4mn}{2(m^2+n^2+mn)}
-$$
+旋轉雙層石墨烯要形成週期結構，期兩層間的旋轉角度要滿足如下公式，其中 $m$、$n$ 是互質的正整數。
+
+.. math::
+    \cos{\theta}=\frac{m^2+n^2+4mn}{2(m^2+n^2+mn)}
 
 
 .. code-block:: python
-from tbmost.core.structure import *
-from tbmost import StructurePlotter
-
-n = 3 
-m = 2 
-nm = (m**2+n**2+4*m*n)/(2*(m**2+n**2+m*n))
-t1 = np.arccos(nm)                   #twisted angle (arc)
-angle_dgr = round((t1/np.pi)*180,2)  #twisted angle (degree)
-print('twisted angle: %s°'%(angle_dgr))
-
-c = 3**(1/2)
-d = 1.42   #A
-ny = 4     #number of vector for y direction
-nx = ny*2  #number of vector for x direction
-
-# Define the size and range of the lattice
-lattice_a1 = np.array([c*d,0]) #translational vector in x direction for 4-atom basis
-lattice_a2 = np.array([0,3*d]) #translational vector in y direction for 4-atom basis
-x_range = np.arange(-nx, nx) * lattice_a1[0]
-y_range = np.arange(-ny, ny) * lattice_a2[1]
-
-tw = TwistedLayer(d, x_range, y_range)
-tbg1a = tw.add_layer('Base', rotation_angle=t1, select_sublattice='A')
-tbg1b = tw.add_layer('Base', rotation_angle=t1, select_sublattice='B')
-tbg2a = tw.add_layer('AA', rotation_angle=-t1, select_sublattice='A')
-tbg2b = tw.add_layer('AA', rotation_angle=-t1, select_sublattice='B')
+    from tbmost.core.structure import *
+    from tbmost import StructurePlotter
+    
+    n = 3 
+    m = 2 
+    nm = (m**2+n**2+4*m*n)/(2*(m**2+n**2+m*n))
+    t1 = np.arccos(nm)                   #twisted angle (arc)
+    angle_dgr = round((t1/np.pi)*180,2)  #twisted angle (degree)
+    print('twisted angle: %s°'%(angle_dgr))
+    
+    c = 3**(1/2)
+    d = 1.42   #A
+    ny = 4     #number of vector for y direction
+    nx = ny*2  #number of vector for x direction
+    
+    # Define the size and range of the lattice
+    lattice_a1 = np.array([c*d,0]) #translational vector in x direction for 4-atom basis
+    lattice_a2 = np.array([0,3*d]) #translational vector in y direction for 4-atom basis
+    x_range = np.arange(-nx, nx) * lattice_a1[0]
+    y_range = np.arange(-ny, ny) * lattice_a2[1]
+    
+    tw = TwistedLayer(d, x_range, y_range)
+    tbg1a = tw.add_layer('Base', rotation_angle=t1, select_sublattice='A')
+    tbg1b = tw.add_layer('Base', rotation_angle=t1, select_sublattice='B')
+    tbg2a = tw.add_layer('AA', rotation_angle=-t1, select_sublattice='A')
+    tbg2b = tw.add_layer('AA', rotation_angle=-t1, select_sublattice='B')
 
 這樣我們就把兩層之間有相對轉角的石墨烯給建立完成了，接著我們需要找出這個週期性重複結構的最小單元，也就是unitcell。
 
