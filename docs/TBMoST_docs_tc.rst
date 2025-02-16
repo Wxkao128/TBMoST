@@ -65,7 +65,7 @@ TBMoST 具備 **高度模組化**、**計算效率高** 及 **直觀易用的 AP
 
 範例圖集
 -------
-.. image:: images/hex_grid_plot.png
+.. image:: image/hex_grid_plot.png
    :alt: Modeling of KTH UTBSOI MOSFET
    :width: 25%
    :align: center
