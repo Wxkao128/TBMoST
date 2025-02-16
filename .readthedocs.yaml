@@ -1,0 +1,13 @@
+version: 1
+
+build:
+  os: windows  
+  tools:
+    python: "3.9"  #  Python version
+
+python:
+  install:
+    - requirements: requirements.txt  # set required package
+
+sphinx:
+  configuration: docs/conf.py  # Sphinx setup file
