@@ -95,26 +95,24 @@ TBMoST 具備 **高度模組化**、**計算效率高** 及 **直觀易用的 AP
 導入套件
 ^^^^^^^^
 首先，我們先導入基本的套件:
+.. code-block:: python
 
-```python
-import numpy as np
+    import numpy as np
 import matplotlib.pyplot as plt
 import tbmost
-```
 
-
-
-#### 建立結構
+建立結構
+^^^^^^^^
 
 接著我們來建立摩爾超晶格，我們將以旋轉雙層石墨烯為例(twisted bilayer graphene)，因此用到的晶格相關參數都會以石墨烯為準，也就是預設值。
 
-旋轉雙層石墨烯要形成週期結構，期兩層間的旋轉角度要滿足如下公式[1]，其中$m$、$n$是互質的正整數。
+旋轉雙層石墨烯要形成週期結構，期兩層間的旋轉角度要滿足如下公式，其中$m$、$n$是互質的正整數。
 $$
 \cos{\theta}=\frac{m^2+n^2+4mn}{2(m^2+n^2+mn)}
 $$
 
 
-```python
+.. code-block:: python
 from tbmost.core.structure import *
 from tbmost import StructurePlotter
 
@@ -141,7 +139,6 @@ tbg1a = tw.add_layer('Base', rotation_angle=t1, select_sublattice='A')
 tbg1b = tw.add_layer('Base', rotation_angle=t1, select_sublattice='B')
 tbg2a = tw.add_layer('AA', rotation_angle=-t1, select_sublattice='A')
 tbg2b = tw.add_layer('AA', rotation_angle=-t1, select_sublattice='B')
-```
 
 這樣我們就把兩層之間有相對轉角的石墨烯給建立完成了，接著我們需要找出這個週期性重複結構的最小單元，也就是unitcell。
 
