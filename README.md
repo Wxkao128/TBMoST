@@ -1,7 +1,7 @@
 TBMoST
 ========
 
-**TBMoST** (**T**\ ight **B**\ inding for **M**\ oiré **ST**\ ructure) is an efficient 
+**TBMoST** (**T**ight **B**inding for **M**oiré **ST**ructure) is an efficient 
 **Python** scientific computing package designed for Moiré superlattice 
 and performs electronic structure calculations based on the Tight Binding Model (TBM).
 
