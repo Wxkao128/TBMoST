@@ -1,9 +1,15 @@
 TBMoST
 ========
 
-**TBMoST** (**T**ight **B**inding for **M**oiré **ST**ructure) is an efficient 
-**Python** scientific computing package designed for Moiré superlattice 
-and performs electronic structure calculations based on the Tight Binding Model (TBM).
+This package is specially designed for processing twisted-layer materials, 
+and can efficiently calculate and analyze a variety of physical properties, including:
+
+- Band Structure
+- Density of States (DOS)
+- Spectral Function
+- Fermi Surface
+- Dynamical Conductivity
+- Berry Curvature, etc.
 
 TBMoST is highly modular, computationally efficient, 
 and has an intuitive and easy-to-use API, 
