@@ -1,0 +1,679 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tutorials &mdash; TBMoST 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=9a2dae69"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Contact" href="Contact.html" />
+    <link rel="prev" title="Installation" href="Installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            TBMoST
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="About.html"><strong>About</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html"><strong>Installation</strong></a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><strong>Tutorials</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#import-packages">Import packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#structure-construction">Structure construction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#output-structure">Output structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#constructing-the-hamiltonian">Constructing the Hamiltonian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mesh-grid-in-k-space">Mesh grid in k space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#band-structure">Band structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#d-band-structure-along-high-symmetry-point">1D Band structure along high symmetry point</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#d-band-structure">2D Band structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">3D Band structure</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#fermi-surface">Fermi Surface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#spectral-function">Spectral function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#density-of-state">Density of state</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#total-density-of-state">Total density of state</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#local-density-of-state">Local density of state</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#conductivity">Conductivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#topological-properties">Topological properties</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Contact.html">Contact</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TBMoST</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><strong>Tutorials</strong></li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Tutorials.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tutorials">
+<h1><strong>Tutorials</strong><a class="headerlink" href="#tutorials" title="Link to this heading"></a></h1>
+<section id="import-packages">
+<h2>Import packages<a class="headerlink" href="#import-packages" title="Link to this heading"></a></h2>
+<p>First, we import the basic packages:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tbmost</span>
+</pre></div>
+</div>
+</section>
+<section id="structure-construction">
+<h2>Structure construction<a class="headerlink" href="#structure-construction" title="Link to this heading"></a></h2>
+<p>Next, we will build a Moore superlattice.
+We will take twisted bilayer graphene (TBG) as an example,
+so the lattice-related parameters used will be based on graphene,
+that is, the default values.</p>
+<p>To rotate a bilayer graphene system to form a periodic structure,
+the rotation angle between the two layers must satisfy the following formula,
+where <span class="math notranslate nohighlight">\(m\)</span> and <span class="math notranslate nohighlight">\(n\)</span> are mutually prime positive integers.</p>
+<div class="math notranslate nohighlight">
+\[\cos{\theta}=\frac{m^2+n^2+4mn}{2(m^2+n^2+mn)}\]</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">tbmost.core.structure</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tbmost</span><span class="w"> </span><span class="kn">import</span> <span class="n">StructurePlotter</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">m</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">nm</span> <span class="o">=</span> <span class="p">(</span><span class="n">m</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">n</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="mi">4</span><span class="o">*</span><span class="n">m</span><span class="o">*</span><span class="n">n</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">m</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">n</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">m</span><span class="o">*</span><span class="n">n</span><span class="p">))</span>
+<span class="n">t1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">nm</span><span class="p">)</span>                   <span class="c1">#twisted angle (arc)</span>
+<span class="n">angle_dgr</span> <span class="o">=</span> <span class="nb">round</span><span class="p">((</span><span class="n">t1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span><span class="o">*</span><span class="mi">180</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>  <span class="c1">#twisted angle (degree)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;twisted angle: </span><span class="si">{</span><span class="n">angle_dgr</span><span class="si">}</span><span class="s1"> deg&#39;</span><span class="p">)</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="mi">3</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">d</span> <span class="o">=</span> <span class="mf">1.42</span>   <span class="c1">#Angstrom</span>
+<span class="n">ny</span> <span class="o">=</span> <span class="mi">4</span>     <span class="c1">#number of vector for y direction</span>
+<span class="n">nx</span> <span class="o">=</span> <span class="n">ny</span><span class="o">*</span><span class="mi">2</span>  <span class="c1">#number of vector for x direction</span>
+
+<span class="c1"># Define the size and range of the lattice</span>
+<span class="n">lattice_a1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">c</span><span class="o">*</span><span class="n">d</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span> <span class="c1">#translational vector in x direction for 4-atom basis</span>
+<span class="n">lattice_a2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="o">*</span><span class="n">d</span><span class="p">])</span> <span class="c1">#translational vector in y direction for 4-atom basis</span>
+<span class="n">x_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">nx</span><span class="p">,</span> <span class="n">nx</span><span class="p">)</span> <span class="o">*</span> <span class="n">lattice_a1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">y_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">ny</span><span class="p">,</span> <span class="n">ny</span><span class="p">)</span> <span class="o">*</span> <span class="n">lattice_a2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">tw</span> <span class="o">=</span> <span class="n">TwistedLayer</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">x_range</span><span class="p">,</span> <span class="n">y_range</span><span class="p">)</span>
+<span class="n">tbg1a</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="s1">&#39;Base&#39;</span><span class="p">,</span> <span class="n">rotation_angle</span><span class="o">=</span><span class="n">t1</span><span class="p">,</span> <span class="n">select_sublattice</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>
+<span class="n">tbg1b</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="s1">&#39;Base&#39;</span><span class="p">,</span> <span class="n">rotation_angle</span><span class="o">=</span><span class="n">t1</span><span class="p">,</span> <span class="n">select_sublattice</span><span class="o">=</span><span class="s1">&#39;B&#39;</span><span class="p">)</span>
+<span class="n">tbg2a</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="s1">&#39;AA&#39;</span><span class="p">,</span> <span class="n">rotation_angle</span><span class="o">=-</span><span class="n">t1</span><span class="p">,</span> <span class="n">select_sublattice</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>
+<span class="n">tbg2b</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="s1">&#39;AA&#39;</span><span class="p">,</span> <span class="n">rotation_angle</span><span class="o">=-</span><span class="n">t1</span><span class="p">,</span> <span class="n">select_sublattice</span><span class="o">=</span><span class="s1">&#39;B&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In this way, we have completed the construction of graphene with relative rotation angles between two layers.
+Then we need to find the smallest unit of this periodic repeating structure, which is the unit cell.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Find the coincident atoms</span>
+<span class="n">rot_layer1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">tbg1a</span><span class="p">,</span> <span class="n">tbg1b</span><span class="p">))</span>
+<span class="n">rot_layer2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">tbg2a</span><span class="p">,</span> <span class="n">tbg2b</span><span class="p">))</span>
+
+<span class="n">coincident_12</span> <span class="o">=</span> <span class="n">tw</span><span class="o">.</span><span class="n">find_coincident_atoms</span><span class="p">(</span><span class="n">rot_layer1</span><span class="p">,</span> <span class="n">rot_layer2</span><span class="p">)</span>
+
+<span class="c1"># Create a plotter instance</span>
+<span class="n">plotter</span> <span class="o">=</span> <span class="n">StructurePlotter</span><span class="p">()</span>
+
+<span class="c1"># Add different sublattices of different layers</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="n">tbg1a</span><span class="p">,</span> <span class="s1">&#39;Layer 1 A&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="n">tbg1b</span><span class="p">,</span> <span class="s1">&#39;Layer 1 B&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="n">tbg2a</span><span class="p">,</span> <span class="s1">&#39;Layer 2 A&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="n">tbg2b</span><span class="p">,</span> <span class="s1">&#39;Layer 2 B&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+
+<span class="c1"># coincident_12 are the overlap atom&#39;s coordinates</span>
+<span class="n">finder</span> <span class="o">=</span> <span class="n">SupercellFinder</span><span class="p">(</span><span class="n">coincident_12</span><span class="p">)</span>
+<span class="n">finder</span><span class="o">.</span><span class="n">find_vertices</span><span class="p">()</span>
+<span class="n">atomO</span><span class="p">,</span> <span class="n">atomA</span><span class="p">,</span> <span class="n">atomB</span><span class="p">,</span> <span class="n">atomC</span> <span class="o">=</span> <span class="n">finder</span><span class="o">.</span><span class="n">get_vertices</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Once the unitcell is found, we can draw it and view its geometry.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot structure</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">plot_unitcell</span><span class="p">(</span><span class="n">atomO</span><span class="p">,</span> <span class="n">atomB</span><span class="p">,</span> <span class="n">atomA</span><span class="p">,</span> <span class="n">atomC</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">coincident_12</span><span class="p">,</span><span class="n">plot_coincident</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">l1a</span> <span class="o">=</span> <span class="n">Count_atom_num</span><span class="p">(</span><span class="n">tbg1a</span><span class="p">,</span><span class="n">atomO</span><span class="p">,</span> <span class="n">atomB</span><span class="p">,</span> <span class="n">atomA</span><span class="p">,</span> <span class="n">atomC</span><span class="p">)</span><span class="o">.</span><span class="n">count_atom_num</span><span class="p">(</span><span class="n">stack_conf</span><span class="o">=</span><span class="s1">&#39;AA&#39;</span><span class="p">,</span> <span class="n">sublattice_type</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">l1b</span> <span class="o">=</span> <span class="n">Count_atom_num</span><span class="p">(</span><span class="n">tbg1b</span><span class="p">,</span><span class="n">atomO</span><span class="p">,</span> <span class="n">atomB</span><span class="p">,</span> <span class="n">atomA</span><span class="p">,</span> <span class="n">atomC</span><span class="p">)</span><span class="o">.</span><span class="n">count_atom_num</span><span class="p">(</span><span class="n">stack_conf</span><span class="o">=</span><span class="s1">&#39;AA&#39;</span><span class="p">,</span> <span class="n">sublattice_type</span><span class="o">=</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">l2a</span> <span class="o">=</span> <span class="n">Count_atom_num</span><span class="p">(</span><span class="n">tbg2a</span><span class="p">,</span><span class="n">atomO</span><span class="p">,</span> <span class="n">atomB</span><span class="p">,</span> <span class="n">atomA</span><span class="p">,</span> <span class="n">atomC</span><span class="p">)</span><span class="o">.</span><span class="n">count_atom_num</span><span class="p">(</span><span class="n">stack_conf</span><span class="o">=</span><span class="s1">&#39;AA&#39;</span><span class="p">,</span> <span class="n">sublattice_type</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mf">13.35</span><span class="p">)</span>
+<span class="n">l2b</span> <span class="o">=</span> <span class="n">Count_atom_num</span><span class="p">(</span><span class="n">tbg2b</span><span class="p">,</span><span class="n">atomO</span><span class="p">,</span> <span class="n">atomB</span><span class="p">,</span> <span class="n">atomA</span><span class="p">,</span> <span class="n">atomC</span><span class="p">)</span><span class="o">.</span><span class="n">count_atom_num</span><span class="p">(</span><span class="n">stack_conf</span><span class="o">=</span><span class="s1">&#39;AA&#39;</span><span class="p">,</span> <span class="n">sublattice_type</span><span class="o">=</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mf">13.35</span><span class="p">)</span>
+<span class="n">can</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">l1a</span><span class="p">)</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">l1b</span><span class="p">)</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">l2a</span><span class="p">)</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">l2b</span><span class="p">),</span><span class="n">l1a</span><span class="p">,</span><span class="n">l1b</span><span class="p">,</span><span class="n">l2a</span><span class="p">,</span><span class="n">l2b</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Output</span><span class="p">:</span>
+<span class="n">twisted</span> <span class="n">angle</span><span class="p">:</span> <span class="mf">13.17</span> <span class="n">deg</span>
+<span class="n">vertex</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span> <span class="mf">0.</span><span class="p">]</span>
+<span class="n">supercell</span> <span class="ow">is</span> <span class="s1">&#39;horizontal diamond&#39;</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/TBG_1317_str.png"><img alt="_images/TBG_1317_str.png" class="align-center" src="_images/TBG_1317_str.png" style="width: 500px;" />
+</a>
+<p>It can be seen that this is a <span class="math notranslate nohighlight">\(13.17^\circ\)</span> TBG structure,
+and the area framed by the blue line is exactly its unit cell.
+If we want to know other relevant information about the lattice, we can use the following method to view:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cell_info</span> <span class="o">=</span> <span class="n">Count_atom_num</span><span class="p">(</span><span class="n">tbg1a</span><span class="p">,</span><span class="n">atomO</span><span class="p">,</span> <span class="n">atomB</span><span class="p">,</span> <span class="n">atomA</span><span class="p">,</span> <span class="n">atomC</span><span class="p">)</span><span class="o">.</span><span class="n">cell_info</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cell_info</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Output</span><span class="p">:</span>
+<span class="p">(</span><span class="mf">99.5364565788833</span><span class="p">,</span>
+<span class="n">array</span><span class="p">([</span> <span class="mf">0.</span>       <span class="p">,</span> <span class="mf">10.7207649</span><span class="p">]),</span>
+<span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">9.28445475</span><span class="p">,</span>  <span class="mf">5.36038245</span><span class="p">]),</span>
+<span class="mf">10.720764898084</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The first element in the tuple is the area of ​​the unit cell (<span class="math notranslate nohighlight">\(\mathring {\mathrm A}^2\)</span>),
+the second and third elements are the lattice vectors, and the fourth element is the lattice constant.</p>
+</section>
+<section id="output-structure">
+<h2>Output structure<a class="headerlink" href="#output-structure" title="Link to this heading"></a></h2>
+<p>We can save the structure generated above and provide it to other software for calculation and analysis.
+The format we output is based on the format of the structure file <code class="docutils literal notranslate"><span class="pre">POSCAR</span></code> of the first principle calculation software <strong>VASP</strong>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">tbmost</span><span class="w"> </span><span class="kn">import</span> <span class="n">POSCARGenerator</span>
+
+<span class="n">poscar_generator</span> <span class="o">=</span> <span class="n">POSCARGenerator</span><span class="p">(</span><span class="n">atomO</span><span class="p">,</span> <span class="n">atomA</span><span class="p">,</span> <span class="n">atomB</span><span class="p">,</span> <span class="n">atomC</span><span class="p">,</span> <span class="n">can</span><span class="p">,</span>
+                                 <span class="n">name</span><span class="o">=</span><span class="s1">&#39;TBG&#39;</span><span class="p">,</span> <span class="n">twist_angle</span><span class="o">=</span><span class="n">angle_dgr</span><span class="p">,</span>
+                                 <span class="n">stack_conf</span><span class="o">=</span><span class="s1">&#39;AA&#39;</span><span class="p">)</span>
+<span class="n">poscar_generator</span><span class="o">.</span><span class="n">generate_POSCAR</span><span class="p">(</span><span class="n">atom_type</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>The following message will appear after successful output:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">=====================================================</span>
+<span class="n">POSCAR</span> <span class="n">file</span> <span class="n">generated</span> <span class="n">at</span><span class="p">:</span> <span class="n">POSCAR_TBG_1317_AA</span>
+<span class="n">POSCAR</span> <span class="n">was</span> <span class="n">written</span> <span class="n">successfully</span><span class="o">.</span>
+<span class="o">=====================================================</span>
+<span class="n">Time</span> <span class="n">taken</span><span class="p">:</span> <span class="mf">0.000000</span> <span class="n">seconds</span>
+</pre></div>
+</div>
+</section>
+<section id="constructing-the-hamiltonian">
+<h2>Constructing the Hamiltonian<a class="headerlink" href="#constructing-the-hamiltonian" title="Link to this heading"></a></h2>
+<p>In order to calculate the band structure, density of states,
+and other physical properties, we first need to construct the Hamiltonian of the system.
+We will input the four vertices of the lattice we obtained earlier into the <code class="docutils literal notranslate"><span class="pre">TBModel</span></code> class,
+and also input the test k-points. For this demonstration,
+we use the <span class="math notranslate nohighlight">\(\Gamma\)</span> point as the test k-point because the Hamiltonian depends on <span class="math notranslate nohighlight">\(k\)</span>,
+but for simplicity, we will not use a more complex choice here.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">tbmost.analysis.solver</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tbmost</span><span class="w"> </span><span class="kn">import</span> <span class="n">TBModel</span>
+
+<span class="n">kx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">ky</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">tb_model_instance</span> <span class="o">=</span> <span class="n">TBModel</span><span class="p">(</span><span class="n">atomO</span><span class="p">,</span> <span class="n">atomB</span><span class="p">,</span> <span class="n">atomA</span><span class="p">,</span> <span class="n">atomC</span><span class="p">,</span> <span class="n">kx</span><span class="o">=</span><span class="n">kx</span><span class="p">,</span> <span class="n">ky</span><span class="o">=</span><span class="n">ky</span><span class="p">,</span> <span class="n">can</span><span class="o">=</span><span class="n">can</span><span class="p">,</span> <span class="n">sp_zm</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">b_mag</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">beta_d</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">strain_m</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">hamiltonian</span><span class="p">,</span> <span class="n">hopping_data</span> <span class="o">=</span> <span class="n">tb_model_instance</span><span class="o">.</span><span class="n">finalize_ham</span><span class="p">(</span><span class="n">hopping_list</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># basic Hamiltonian</span>
+<span class="n">onsite_part</span> <span class="o">=</span> <span class="n">tb_model_instance</span><span class="o">.</span><span class="n">onsite_e_field</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">can</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># onsite energy, for A,B sublattice are 0 here</span>
+<span class="n">hamiltonian</span> <span class="o">+=</span> <span class="n">onsite_part</span>
+<span class="n">solver</span> <span class="o">=</span> <span class="n">EigenSolver</span><span class="p">(</span><span class="n">hamiltonian</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In this way, the Hamiltonian is constructed.
+We use these two variables <code class="docutils literal notranslate"><span class="pre">hamiltonian</span></code>, <code class="docutils literal notranslate"><span class="pre">hopping_data</span></code> to store the constructed Hamiltonian.
+The first variable stores the Hamiltonian matrix after the k point is introduced,
+and the second variable stores hopping related information.</p>
+<p>We can solve the matrix diagonalization using the <code class="docutils literal notranslate"><span class="pre">solve_eig</span> <span class="pre">method</span></code> in the <code class="docutils literal notranslate"><span class="pre">EigenSolver</span></code> class,
+and we can choose whether we want to return eigenvalues, eigenvectors, or both.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># only return eigenvectors</span>
+<span class="n">tb_eigenvectors</span> <span class="o">=</span> <span class="n">solver</span><span class="o">.</span><span class="n">solve_eig</span><span class="p">(</span><span class="n">return_vectors</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># only return eigenvalues</span>
+<span class="n">tb_eigenvalues</span> <span class="o">=</span> <span class="n">solver</span><span class="o">.</span><span class="n">solve_eig</span><span class="p">(</span><span class="n">return_eigenvalues</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># return both</span>
+<span class="n">tb_eigenvalues</span><span class="p">,</span> <span class="n">tb_eigenvectors</span> <span class="o">=</span> <span class="n">solver</span><span class="o">.</span><span class="n">solve_eig</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">flattened</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">hopping_data</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">]</span>
+<span class="n">hopping_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">flattened</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;TBG_</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">angle_dgr</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span><span class="si">}</span><span class="s1">_hopping.npy&#39;</span><span class="p">,</span> <span class="n">hopping_array</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a crucial step. To avoid repeatedly generating the Hamiltonian matrix,
+we can save the <code class="docutils literal notranslate"><span class="pre">hopping_data</span></code> we just computed. Later,
+when calculating physical quantities that require the Hamiltonian,
+we can directly read the contents of the file and quickly generate the Hamiltonian.</p>
+</div>
+</section>
+<section id="mesh-grid-in-k-space">
+<h2>Mesh grid in k space<a class="headerlink" href="#mesh-grid-in-k-space" title="Link to this heading"></a></h2>
+<p>Because we are calculating a periodic structure,
+the Hamiltonian and the physical quantities calculated later depend on the grid points in k-space.
+We can use the method in <code class="docutils literal notranslate"><span class="pre">Moire_Brillouin_zone</span></code> class to help us generate k-points.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">tbmost</span><span class="w"> </span><span class="kn">import</span> <span class="n">Moire_Brillouin_zone</span>
+
+<span class="n">mbz</span> <span class="o">=</span> <span class="n">Moire_Brillouin_zone</span><span class="p">(</span><span class="n">atomO</span><span class="p">,</span> <span class="n">atomB</span><span class="p">,</span> <span class="n">atomA</span><span class="p">,</span> <span class="n">atomC</span><span class="p">)</span>
+
+<span class="c1"># For testing: Draw and calculate the rhombus/hexagonal BZ and the k points inside it</span>
+<span class="n">mbz</span><span class="o">.</span><span class="n">hexagon_bz</span><span class="p">(</span><span class="n">kpoints</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">plot_bz</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">plot_redbz_6</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">kxx</span><span class="p">,</span> <span class="n">kyy</span><span class="p">,</span> <span class="n">a1_norm</span><span class="p">,</span> <span class="n">a2_norm</span> <span class="o">=</span> <span class="n">mbz</span><span class="o">.</span><span class="n">hexagon_bz</span><span class="p">(</span><span class="n">plot_bz</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The following is the message displayed after the k-points are generated.
+<code class="docutils literal notranslate"><span class="pre">TBMoST</span></code> will output the real space vectors and reciprocal space vectors of the lattice
+as well as the coordinates of the high symmetry points <span class="math notranslate nohighlight">\(K(K')\)</span> and <span class="math notranslate nohighlight">\(M\)</span>.
+In addition, the number of all lattice points in the first Brillouin zone will also be displayed at the bottom.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Output</span><span class="p">:</span>
+<span class="n">Real</span><span class="o">-</span><span class="n">space</span> <span class="n">lattice</span> <span class="n">vector</span><span class="p">:</span>
+<span class="mf">9.284455</span>   <span class="mf">5.360382</span>
+<span class="o">-</span><span class="mf">9.284455</span>   <span class="mf">5.360382</span>
+
+<span class="n">Reciprocal</span> <span class="n">lattice</span> <span class="n">vector</span><span class="p">:</span>
+<span class="mf">0.338371</span>   <span class="mf">0.586076</span>
+<span class="o">-</span><span class="mf">0.338371</span>   <span class="mf">0.586076</span>
+
+<span class="n">k_valleys</span><span class="p">:</span>
+   <span class="mf">0.0000</span>     <span class="mf">0.3907</span>
+   <span class="o">-</span><span class="mf">0.3384</span>     <span class="mf">0.1954</span>
+   <span class="o">-</span><span class="mf">0.3384</span>    <span class="o">-</span><span class="mf">0.1954</span>
+   <span class="o">-</span><span class="mf">0.0000</span>    <span class="o">-</span><span class="mf">0.3907</span>
+   <span class="mf">0.3384</span>    <span class="o">-</span><span class="mf">0.1954</span>
+   <span class="mf">0.3384</span>     <span class="mf">0.1954</span>
+
+<span class="n">m_points</span><span class="p">:</span>
+   <span class="mf">0.1692</span>     <span class="mf">0.2930</span>
+   <span class="o">-</span><span class="mf">0.1692</span>     <span class="mf">0.2930</span>
+   <span class="o">-</span><span class="mf">0.3384</span>    <span class="o">-</span><span class="mf">0.0000</span>
+   <span class="o">-</span><span class="mf">0.1692</span>    <span class="o">-</span><span class="mf">0.2930</span>
+   <span class="mf">0.1692</span>    <span class="o">-</span><span class="mf">0.2930</span>
+   <span class="mf">0.3384</span>     <span class="mf">0.0000</span>
+<span class="n">number</span> <span class="n">of</span> <span class="n">k</span><span class="o">-</span><span class="n">point</span> <span class="ow">in</span> <span class="mi">1</span><span class="o">/</span><span class="mi">6</span> <span class="n">reduced</span> <span class="n">BZ</span><span class="p">:</span> <span class="mi">22</span>
+<span class="n">Input</span> <span class="n">kpoints</span> <span class="ow">is</span> <span class="mi">11</span>
+<span class="n">Predicted</span> <span class="n">number</span> <span class="n">of</span> <span class="n">K</span> <span class="n">points</span><span class="p">:</span> <span class="mi">97</span>
+   <span class="n">Actual</span> <span class="n">number</span> <span class="n">of</span> <span class="n">K</span> <span class="n">points</span><span class="p">:</span> <span class="mi">97</span>
+</pre></div>
+</div>
+</section>
+<section id="band-structure">
+<h2>Band structure<a class="headerlink" href="#band-structure" title="Link to this heading"></a></h2>
+<section id="d-band-structure-along-high-symmetry-point">
+<h3>1D Band structure along high symmetry point<a class="headerlink" href="#d-band-structure-along-high-symmetry-point" title="Link to this heading"></a></h3>
+<p>To compute the one-dimensional band structure,
+we use the <code class="docutils literal notranslate"><span class="pre">k_path_bnd</span></code> method in the <code class="docutils literal notranslate"><span class="pre">BandStructure</span></code> class,
+and we use the default path, namely <span class="math notranslate nohighlight">\(K'-\Gamma-M-K-\Gamma\)</span>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">tbmost</span><span class="w"> </span><span class="kn">import</span> <span class="n">BandStructure</span>
+
+<span class="n">kdens</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">k_num_near_hsp</span> <span class="o">=</span> <span class="mi">30</span>  <span class="c1"># number of k points near specific high symmetry point</span>
+<span class="n">bnd_str</span> <span class="o">=</span> <span class="n">BandStructure</span><span class="p">(</span><span class="n">angle</span><span class="o">=</span><span class="n">angle_dgr</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;TBG&#39;</span><span class="p">,</span> <span class="n">can</span><span class="o">=</span><span class="n">can</span><span class="p">,</span> <span class="n">plotb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">AllK</span><span class="p">,</span> <span class="n">k_path</span><span class="p">,</span> <span class="n">Kpaths_coord</span> <span class="o">=</span> <span class="n">bnd_str</span><span class="o">.</span><span class="n">k_path_bnd</span><span class="p">(</span><span class="n">atomO</span><span class="p">,</span> <span class="n">atomB</span><span class="p">,</span> <span class="n">atomA</span><span class="p">,</span> <span class="n">atomC</span><span class="p">,</span> <span class="n">k_sec_num</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">kdens</span><span class="o">=</span><span class="n">kdens</span><span class="p">)</span>
+
+<span class="n">tb_model_instance</span> <span class="o">=</span> <span class="n">TBModel</span><span class="p">(</span><span class="n">atomO</span><span class="p">,</span> <span class="n">atomB</span><span class="p">,</span> <span class="n">atomA</span><span class="p">,</span> <span class="n">atomC</span><span class="p">,</span> <span class="n">kx</span><span class="o">=</span><span class="n">k_path</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">ky</span><span class="o">=</span><span class="n">k_path</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span>
+                            <span class="n">can</span><span class="o">=</span><span class="n">can</span><span class="p">,</span> <span class="n">sp_zm</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">b_mag</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">beta_d</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">strain_m</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">hamiltonian</span> <span class="o">=</span> <span class="n">tb_model_instance</span><span class="o">.</span><span class="n">finalize_ham</span><span class="p">()</span>  <span class="c1"># Basic Hamiltonian matrix</span>
+<span class="n">solver</span> <span class="o">=</span> <span class="n">EigenSolver</span><span class="p">(</span><span class="n">hamiltonian</span><span class="p">)</span>
+<span class="n">eigenvalues</span><span class="p">,</span> <span class="n">eigenvectors</span> <span class="o">=</span> <span class="n">solver</span><span class="o">.</span><span class="n">solve_eig</span><span class="p">()</span>  <span class="c1"># return both eigenvalues and eigenvectors</span>
+
+<span class="n">bnd_str</span><span class="o">.</span><span class="n">plot_tb_band</span><span class="p">(</span><span class="n">eigenvalues</span><span class="p">,</span> <span class="n">AllK</span><span class="p">,</span> <span class="n">Kpaths_coord</span><span class="p">,</span> <span class="n">kdens</span><span class="o">=</span><span class="n">kdens</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/TBG_1317_bnd.png"><img alt="_images/TBG_1317_bnd.png" class="align-center" src="_images/TBG_1317_bnd.png" style="width: 500px;" />
+</a>
+<p>The intersection of K’ and K is the Dirac point. The blue and red lines represent the highest valance band and the lowest conduction band.</p>
+</section>
+<section id="d-band-structure">
+<h3>2D Band structure<a class="headerlink" href="#d-band-structure" title="Link to this heading"></a></h3>
+<p>To calculate the two-dimensional band structure we need to generate k points uniformly in the Brillouin zone,
+so we need to use the <code class="docutils literal notranslate"><span class="pre">Moire_Brillouin_zone</span></code> class introduced earlier.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot 2D contour band</span>
+<span class="n">kxx0</span><span class="p">,</span> <span class="n">kyy0</span><span class="p">,</span> <span class="n">a1_norm</span><span class="p">,</span> <span class="n">a2_norm</span> <span class="o">=</span> <span class="n">mbz</span><span class="o">.</span><span class="n">hexagon_bz</span><span class="p">(</span><span class="n">kpoints</span><span class="o">=</span><span class="mi">159</span><span class="p">,</span> <span class="n">plot_bz</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                             <span class="n">bz_type</span><span class="o">=</span><span class="s1">&#39;redbz12&#39;</span><span class="p">,</span>
+                                             <span class="n">plot_redbz_12</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">tb_model_instance</span> <span class="o">=</span> <span class="n">TBModel</span><span class="p">(</span><span class="n">atomO</span><span class="p">,</span> <span class="n">atomB</span><span class="p">,</span> <span class="n">atomA</span><span class="p">,</span> <span class="n">atomC</span><span class="p">,</span> <span class="n">kx</span><span class="o">=</span><span class="n">kxx0</span><span class="p">,</span> <span class="n">ky</span><span class="o">=</span><span class="n">kyy0</span><span class="p">,</span>
+                           <span class="n">can</span><span class="o">=</span><span class="n">can</span><span class="p">,</span> <span class="n">sp_zm</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">b_mag</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">beta_d</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">strain_m</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">hamiltonian</span> <span class="o">=</span> <span class="n">tb_model_instance</span><span class="o">.</span><span class="n">finalize_ham</span><span class="p">()</span>  <span class="c1"># Basic Hamiltonian matrix</span>
+<span class="n">solver</span> <span class="o">=</span> <span class="n">EigenSolver</span><span class="p">(</span><span class="n">hamiltonian</span><span class="p">)</span>
+<span class="n">eigenvalues</span><span class="p">,</span> <span class="n">eigenvectors</span> <span class="o">=</span> <span class="n">solver</span><span class="o">.</span><span class="n">solve_eig</span><span class="p">()</span>  <span class="c1"># return both eigenvalues and eigenvectors</span>
+</pre></div>
+</div>
+<p>After generating the k points,
+we draw the two-dimensional structure diagrams of the lowest conduction band and the highest valance band respectively.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">twod_bnd</span> <span class="o">=</span> <span class="n">bnd_str</span><span class="o">.</span><span class="n">plot_2b_contour_band</span><span class="p">(</span><span class="n">eigenvalues</span><span class="p">,</span> <span class="n">kxx0</span><span class="p">,</span> <span class="n">kyy0</span><span class="p">,</span>
+                                     <span class="n">bnd_index</span><span class="o">=</span><span class="mi">37</span><span class="p">,</span> <span class="n">save_npyz</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                     <span class="n">contour_line</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">plt_bnd</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">mbz</span><span class="o">.</span><span class="n">magic_mirror</span><span class="p">(</span><span class="n">twod_bnd</span><span class="p">,</span> <span class="n">contour_value</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/TBG_1317_bnd37.png"><img alt="_images/TBG_1317_bnd37.png" class="align-center" src="_images/TBG_1317_bnd37.png" style="width: 500px;" />
+</a>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">twod_bnd</span> <span class="o">=</span> <span class="n">bnd_str</span><span class="o">.</span><span class="n">plot_2b_contour_band</span><span class="p">(</span><span class="n">eigenvalues</span><span class="p">,</span> <span class="n">kxx0</span><span class="p">,</span> <span class="n">kyy0</span><span class="p">,</span>
+                                     <span class="n">bnd_index</span><span class="o">=</span><span class="mi">38</span><span class="p">,</span> <span class="n">save_npyz</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                     <span class="n">contour_line</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">plt_bnd</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">mbz</span><span class="o">.</span><span class="n">magic_mirror</span><span class="p">(</span><span class="n">twod_bnd</span><span class="p">,</span> <span class="n">contour_value</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/TBG_1317_bnd38.png"><img alt="_images/TBG_1317_bnd38.png" class="align-center" src="_images/TBG_1317_bnd38.png" style="width: 500px;" />
+</a>
+</section>
+<section id="id1">
+<h3>3D Band structure<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<p>The 3D band structure can help us view the band bending from another perspective.
+By using the k-points of calculating the 2D band structure,
+we similarly choose to plot the lowest conduction band and the highest valence band.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot 3d band structure for specific bands</span>
+<span class="n">bnd_str</span><span class="o">.</span><span class="n">plot_3b_band</span><span class="p">(</span><span class="n">solve_eig</span><span class="o">=</span><span class="n">eigenvalues</span><span class="p">,</span> <span class="n">AllKx</span><span class="o">=</span><span class="n">kxx0</span><span class="p">,</span> <span class="n">AllKy</span><span class="o">=</span><span class="n">kyy0</span><span class="p">,</span>
+                     <span class="n">bnd_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">37</span><span class="p">,</span><span class="mi">38</span><span class="p">],</span> <span class="n">save_npyz</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="image-row docutils container">
+<a class="reference internal image-reference" href="_images/TBG_1317_3Dbnd.png"><img alt="_images/TBG_1317_3Dbnd.png" class="align-left" src="_images/TBG_1317_3Dbnd.png" style="width: 40%;" />
+</a>
+<a class="reference internal image-reference" href="_images/TBG_1317_3Dbnd2.png"><img alt="_images/TBG_1317_3Dbnd2.png" class="align-right" src="_images/TBG_1317_3Dbnd2.png" style="width: 53%;" />
+</a>
+</div>
+</section>
+</section>
+<section id="fermi-surface">
+<h2>Fermi Surface<a class="headerlink" href="#fermi-surface" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot Fermi surface(Fermi contour)</span>
+<span class="n">fermi_surf_data</span> <span class="o">=</span> <span class="n">bnd_str</span><span class="o">.</span><span class="n">Fermi_surface</span><span class="p">(</span><span class="n">eigenvalues</span><span class="p">,</span> <span class="n">kxx0</span><span class="p">,</span> <span class="n">kyy0</span><span class="p">,</span>
+                                       <span class="n">e_fermi</span><span class="o">=</span><span class="mf">1.3</span><span class="p">,</span>
+                                       <span class="n">plt_fs</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">n_grid</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+
+<span class="n">mbz</span><span class="o">.</span><span class="n">magic_mirror</span><span class="p">(</span><span class="n">fermi_surf_data</span><span class="p">,</span> <span class="n">contour_value</span><span class="o">=</span><span class="mf">1.3</span><span class="p">)</span>
+
+<span class="c1"># plot Moire Brillouin zone boundary for Fermi contour</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">contextlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">redirect_stdout</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">devnull</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)):</span>
+   <span class="n">mbz2</span> <span class="o">=</span> <span class="n">Moire_Brillouin_zone</span><span class="p">(</span><span class="n">atomO</span><span class="p">,</span> <span class="n">atomB</span><span class="p">,</span> <span class="n">atomA</span><span class="p">,</span> <span class="n">atomC</span><span class="p">)</span>
+   <span class="n">mbz2</span><span class="o">.</span><span class="n">hexagon_bz</span><span class="p">(</span><span class="n">kpoints</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">plot_bz</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">plot_bzline_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/TBG_1317_FS_1.1eV.png"><img alt="_images/TBG_1317_FS_1.1eV.png" class="align-center" src="_images/TBG_1317_FS_1.1eV.png" style="width: 500px;" />
+</a>
+<p>Fermi surface. The blue line is the boundary of the first Brillouin zone.</p>
+</section>
+<section id="spectral-function">
+<h2>Spectral function<a class="headerlink" href="#spectral-function" title="Link to this heading"></a></h2>
+<p>Spectral functions are often used to describe the electronic structure and excitation properties of a system.
+Specifically, the spectral function is usually a frequency-dependent function of the imaginary part of the Green’s function,
+which characterizes the response of the system to external perturbations.</p>
+<div class="math notranslate nohighlight">
+\[A(k,\omega)=-\frac{1}{\pi}\text{Im}[G(k,\omega)]\]</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">e_grid</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">fe_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">e_grid</span><span class="p">)</span>
+
+<span class="n">bnd_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">13</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">16</span><span class="p">])</span>
+<span class="n">site_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">])</span>
+
+<span class="c1"># plot the spectral function contributed only by site 8 and 9</span>
+<span class="n">sf_array1</span> <span class="o">=</span> <span class="n">bnd_str</span><span class="o">.</span><span class="n">spectral_function_Local</span><span class="p">(</span><span class="n">energy_array</span><span class="o">=</span><span class="n">fe_array</span><span class="p">,</span>
+                                          <span class="n">solve_eig</span><span class="o">=</span><span class="n">eigenvalues</span><span class="p">,</span>
+                                          <span class="n">solve_vec</span><span class="o">=</span><span class="n">eigenvectors</span><span class="p">,</span>
+                                          <span class="n">delta</span><span class="o">=</span><span class="mf">0.03</span><span class="p">,</span> <span class="n">site_list</span><span class="o">=</span><span class="n">site_array</span><span class="p">,</span>
+                                          <span class="n">bnd_list</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="c1"># plot the total spectral function</span>
+<span class="n">sf_array2</span> <span class="o">=</span> <span class="n">bnd_str</span><span class="o">.</span><span class="n">spectral_function_Delta</span><span class="p">(</span><span class="n">energy_array</span><span class="o">=</span><span class="n">fe_array</span><span class="p">,</span>
+                                          <span class="n">solve_eig</span><span class="o">=</span><span class="n">eigenvalues</span><span class="p">,</span>
+                                          <span class="n">delta</span><span class="o">=</span><span class="mf">0.03</span><span class="p">)</span>
+
+<span class="n">bnd_str</span><span class="o">.</span><span class="n">plot_spectral_function</span><span class="p">(</span><span class="n">sf_array1</span><span class="p">,</span> <span class="n">x_ticks_coord</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                              <span class="n">x_new_ticks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">save_fig</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                              <span class="n">site_list</span><span class="o">=</span><span class="n">site_array</span><span class="p">)</span>
+
+<span class="n">bnd_str</span><span class="o">.</span><span class="n">plot_spectral_function</span><span class="p">(</span><span class="n">sf_array2</span><span class="p">,</span> <span class="n">x_ticks_coord</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                              <span class="n">x_new_ticks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">save_fig</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The left figure shows the spectral function calculated by selecting the 8th and 9th atoms;
+the right figure shows the plot of all atoms. The difference in values ​​between the two figures can be seen.</p>
+<div class="image-row docutils container">
+<a class="reference internal image-reference" href="_images/TBG_1317_LSP.png"><img alt="_images/TBG_1317_LSP.png" class="align-left" src="_images/TBG_1317_LSP.png" style="width: 45%;" />
+</a>
+<a class="reference internal image-reference" href="_images/TBG_1317_TSP.png"><img alt="_images/TBG_1317_TSP.png" class="align-right" src="_images/TBG_1317_TSP.png" style="width: 45%;" />
+</a>
+</div>
+</section>
+<section id="density-of-state">
+<h2>Density of state<a class="headerlink" href="#density-of-state" title="Link to this heading"></a></h2>
+<p>The density of states (DOS) describes the number of quantum states within a given energy range.
+It reflects the electronic structure of a material and is crucial to its conductivity,
+optical properties and other electronic properties.
+Regions with high density of states indicate that electrons have more states to fill near that energy,
+while regions with low density of states indicate that there are fewer or even no electron states.
+The local density of states (LDOS) is the spatial distribution of DOS,
+which represents the density of electronic states at a specific spatial position and helps analyze surface states,
+edge states or local energy level characteristics.</p>
+<section id="total-density-of-state">
+<h3>Total density of state<a class="headerlink" href="#total-density-of-state" title="Link to this heading"></a></h3>
+<p>Let us first demonstrate the total state density of the system.
+We will use two different calculation methods to obtain the total state density of the system.
+The following is the formula basis of the Lorentzian broadening method:</p>
+<div class="math notranslate nohighlight">
+\[DOS(\omega)=\frac{1}{\pi}\sum_{k,n}\frac{\frac{\delta}{2}}{(\omega-E_{n}(k))^2+(\frac{\delta}{2})^2}\]</div>
+<p>We need to have the eigenvalues ​​and eigenvectors calculated previously as parameter input,
+as well as the k-point coordinates corresponding to these features.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">tbmost</span><span class="w"> </span><span class="kn">import</span> <span class="n">DensityOfState</span>
+<span class="n">dos</span> <span class="o">=</span> <span class="n">DensityOfState</span><span class="p">(</span><span class="n">solve_eig</span><span class="o">=</span><span class="n">eigenvalues</span><span class="p">,</span> <span class="n">solve_vec</span><span class="o">=</span><span class="n">eigenvectors</span><span class="p">,</span>
+                     <span class="n">AllKx</span><span class="o">=</span><span class="n">kxx0</span><span class="p">,</span> <span class="n">AllKy</span><span class="o">=</span><span class="n">kyy0</span><span class="p">,</span> <span class="n">e_range</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">5.</span><span class="p">,</span> <span class="mf">5.</span><span class="p">])</span>
+
+<span class="c1"># Total DOS</span>
+<span class="n">dos</span><span class="o">.</span><span class="n">total_dos_Hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">rot_dos</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">dos</span><span class="o">.</span><span class="n">total_dos_Delta</span><span class="p">(</span><span class="n">delta</span><span class="o">=</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">rot_dos</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">e_grid</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="c1">#dos.total_dos_GF(ham_matrix=hamiltonian, rot_dos=False, e_grid=200)</span>
+</pre></div>
+</div>
+<div class="image-row docutils container">
+<a class="reference internal image-reference" href="_images/TBG_1317_dos(hist).png"><img alt="_images/TBG_1317_dos%28hist%29.png" class="align-left" src="_images/TBG_1317_dos%28hist%29.png" style="width: 45%;" />
+</a>
+<a class="reference internal image-reference" href="_images/TBG_1317_dos(Delta).png"><img alt="_images/TBG_1317_dos%28Delta%29.png" class="align-right" src="_images/TBG_1317_dos%28Delta%29.png" style="width: 45%;" />
+</a>
+</div>
+<p>The left figure is using histogram method,
+while the right figure using the Lorentzian broadening method.</p>
+<p>It can be seen that the state density values ​​and curves obtained by these two methods are very close,
+but there are still slight differences. This depends on the number of histograms used.
+We can adjust the parameter <code class="docutils literal notranslate"><span class="pre">bins</span></code>.
+In addition, for the total state density obtained using the Lorentzian broadening method,
+the parameter <code class="docutils literal notranslate"><span class="pre">delta</span></code> in the <code class="docutils literal notranslate"><span class="pre">total_dos_Delta</span></code> method can be used to control the broadening,
+as well as <code class="docutils literal notranslate"><span class="pre">e_grid</span></code> to control the number of energy grid points.</p>
+</section>
+<section id="local-density-of-state">
+<h3>Local density of state<a class="headerlink" href="#local-density-of-state" title="Link to this heading"></a></h3>
+<p>We can selectively view the contribution of a few atoms to the system’s density of states.
+In the following example, we select two sets of atoms, numbered 0, 1, 2, and 25 are first set,
+while 7,9,15 and 22 are second set.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># LDOS</span>
+<span class="n">site_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">25</span><span class="p">])</span>
+<span class="n">dos</span><span class="o">.</span><span class="n">ldos</span><span class="p">(</span><span class="n">site_list</span><span class="o">=</span><span class="n">site_arr</span><span class="p">,</span> <span class="n">plot_ldos</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rot_dos</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">e_grid</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+
+<span class="n">site_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">7</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">22</span><span class="p">])</span>
+<span class="n">dos</span><span class="o">.</span><span class="n">ldos</span><span class="p">(</span><span class="n">site_list</span><span class="o">=</span><span class="n">site_arr</span><span class="p">,</span> <span class="n">plot_ldos</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rot_dos</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">e_grid</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>It can be seen that when projected onto the contributions of different atoms,
+their values ​​are slightly different.</p>
+<div class="image-row docutils container">
+<a class="reference internal image-reference" href="_images/TBG_1317_ldos.png"><img alt="_images/TBG_1317_ldos.png" class="align-left" src="_images/TBG_1317_ldos.png" style="width: 45%;" />
+</a>
+<a class="reference internal image-reference" href="_images/TBG_1317_ldos2.png"><img alt="_images/TBG_1317_ldos2.png" class="align-right" src="_images/TBG_1317_ldos2.png" style="width: 45%;" />
+</a>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The parameter <cite>site_list</cite> needs to input data in the form of an array.
+There is no limit to the number of elements as long as the atom number does not exceed the matrix dimension.
+Here, we choose to view four atoms. Another input parameter is the atom number.
+since Python conventionally starts indexing from 0,
+while the returned image displays the corresponding atom number,
+there will be a difference of 1 between the two.
+If you want to check the atomic indices for projection, you can use the following command:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plotter</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">coincident_12</span><span class="p">,</span><span class="n">plot_coincident</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">plot_index_atom</span><span class="p">(</span><span class="n">can</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="conductivity">
+<h2>Conductivity<a class="headerlink" href="#conductivity" title="Link to this heading"></a></h2>
+<p>In <code class="docutils literal notranslate"><span class="pre">TBMoST</span></code>, dynamic conductivity is calculated based on the <strong>Kubo Formula</strong>,
+which describes the electronic response of a material under an applied electric field
+and is suitable for analyzing frequency-dependent electrical properties.</p>
+<div class="math notranslate nohighlight">
+\[\sigma_{\alpha\beta}(\omega)=\frac{i\hbar}{V}\sum_{m,n}\frac{f(E_m)-f(E_n)}{E_m-E_n}\frac{\bra{m}j_{\alpha}\ket{n}\bra{n}j_{\beta}\ket{m}}{E_m-E_n+\hbar\omega+i\eta}\]</div>
+<p>where
+<span class="math notranslate nohighlight">\(\sigma_{\alpha\beta}(\omega)\)</span> is the conductivity tensor component at frequency <span class="math notranslate nohighlight">\(\omega\)</span>.
+<span class="math notranslate nohighlight">\(E_m\)</span>, <span class="math notranslate nohighlight">\(E_n\)</span> are the electron energy levels,
+<span class="math notranslate nohighlight">\(f(E)\)</span> is the Fermi-Dirac distribution function,
+<span class="math notranslate nohighlight">\(j_{\alpha} = -e v_{\alpha}\)</span> is the current density operator, <span class="math notranslate nohighlight">\(v_{\alpha}\)</span> is the velocity operator,
+<span class="math notranslate nohighlight">\(V\)</span> is the volume, <span class="math notranslate nohighlight">\(\eta\)</span> is a small broadening parameter to ensure numerical stability.</p>
+<p>In terms of operation, we also need to input the eigenvalues ​​and eigenvectors
+as well as the k-point coordinates corresponding to these eigenvalues.
+Since the tensor component we chose is <code class="docutils literal notranslate"><span class="pre">xx</span></code>, that is, the two current density operators are both in the <code class="docutils literal notranslate"><span class="pre">x</span></code> direction,
+we need to input <code class="docutils literal notranslate"><span class="pre">xx</span></code> in the parameter <code class="docutils literal notranslate"><span class="pre">direction</span></code>. When using the <code class="docutils literal notranslate"><span class="pre">dynamical_conductivity</span></code> method,
+we can choose how to calculate the current density matrix.
+This can be done through the parameter <code class="docutils literal notranslate"><span class="pre">method</span></code>. <code class="docutils literal notranslate"><span class="pre">method=1</span></code> means using finite differences for calculation,
+and <code class="docutils literal notranslate"><span class="pre">delta</span></code> needs to be controlled to adjust the accuracy of the differences.
+If <code class="docutils literal notranslate"><span class="pre">method=2</span></code> is used, the result of the analytical differential form is used for calculation.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">tbmost</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optical_conductivity</span>
+
+<span class="c1"># dynamical conductivity</span>
+<span class="n">oc</span> <span class="o">=</span> <span class="n">Optical_conductivity</span><span class="p">(</span><span class="n">solve_eig</span><span class="o">=</span><span class="n">eigenvalues</span><span class="p">,</span> <span class="n">solve_vec</span><span class="o">=</span><span class="n">eigenvectors</span><span class="p">,</span>
+                        <span class="n">ham_matrix</span><span class="o">=</span><span class="n">hamiltonian</span><span class="p">,</span> <span class="n">AllKx</span><span class="o">=</span><span class="n">kxx0</span><span class="p">,</span> <span class="n">AllKy</span><span class="o">=</span><span class="n">kyy0</span><span class="p">,</span>
+                        <span class="n">e_range</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;xx&#39;</span><span class="p">)</span>
+
+<span class="n">oc</span><span class="o">.</span><span class="n">dynamical_conductivity</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">e_grid</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">delta</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="mf">1e-2</span><span class="o">*</span><span class="mi">3</span><span class="p">,</span>
+                        <span class="n">data</span><span class="o">=</span><span class="n">loaded_array</span><span class="p">,</span> <span class="n">num_k</span><span class="o">=</span><span class="n">kxx0</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                        <span class="n">volumn_spcell</span><span class="o">=</span><span class="n">cell_info</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/TBG_1317_dc.png"><img alt="_images/TBG_1317_dc.png" class="align-center" src="_images/TBG_1317_dc.png" style="width: 500px;" />
+</a>
+</section>
+<section id="topological-properties">
+<h2>Topological properties<a class="headerlink" href="#topological-properties" title="Link to this heading"></a></h2>
+<p>In topological insulators, the Berry curvature causes electrons to generate transverse currents
+in the absence of an external magnetic field, which is the anomalous Hall effect (AHE).</p>
+<p>The Chern number is a topological invariant that distinguishes different topological phases.
+It can usually be calculated by integrating the Berry curvature in momentum space:</p>
+<div class="math notranslate nohighlight">
+\[C_n=\frac{1}{2\pi}\int_{BZ}\Omega_{n}d^2k\]</div>
+<p>In some materials (such as Weyl semimetals), the Berry curvature monopole corresponds to Weyl points,
+which are similar to magnetic monopoles in momentum space.</p>
+<p>Berry curvature is related to <strong>nonlinear optoelectronic effects</strong> (such as the photoinduced Hall effect).
+In topological materials, nonlinear optical responses can be used to detect Berry curvature.</p>
+<p>In <strong>TBMoST</strong>, users can calculate the Berry curvature in the Brillouin zone using the tight binding model.
+We choose to compute the Berry curvature of the highest valance band, which can be controlled by the parameter <code class="docutils literal notranslate"><span class="pre">select_bnd_index</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">tbmost</span><span class="w"> </span><span class="kn">import</span> <span class="n">Topology</span>
+
+<span class="n">topo</span> <span class="o">=</span> <span class="n">Topology</span><span class="p">(</span><span class="n">solve_eig</span><span class="o">=</span><span class="n">eigenvalues</span><span class="p">,</span> <span class="n">solve_vec</span><span class="o">=</span><span class="n">eigenvectors</span><span class="p">,</span>
+               <span class="n">AllKx</span><span class="o">=</span><span class="n">kxx0</span><span class="p">,</span> <span class="n">AllKy</span><span class="o">=</span><span class="n">kyy0</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;plane&#39;</span><span class="p">)</span>
+
+<span class="n">berry_curv</span><span class="p">,</span> <span class="n">chern_number</span> <span class="o">=</span> <span class="n">topo</span><span class="o">.</span><span class="n">berry_curvature_basic</span><span class="p">(</span>
+                                    <span class="n">data</span><span class="o">=</span><span class="n">loaded_array</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                                    <span class="n">select_bnd_index</span><span class="o">=</span><span class="mi">37</span><span class="p">,</span>
+                                    <span class="n">plt_bc</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">contour_line</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">mbz</span><span class="o">.</span><span class="n">magic_mirror</span><span class="p">(</span><span class="n">berry_curv</span><span class="p">,</span> <span class="n">contour_value</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/TBG_1317_bc37.png"><img alt="_images/TBG_1317_bc37.png" class="align-center" src="_images/TBG_1317_bc37.png" style="width: 500px;" />
+</a>
+<p>Because TBG is not a topological insulator at large twisted angles,
+its Berry curvature is very small and can be ignored.</p>
+<p>In topological insulators (such as Chern insulators, quantum Hall effect),
+the Hall conductivity can be determined by the Chern number of the energy band:</p>
+<div class="math notranslate nohighlight">
+\[\sigma_{\alpha\beta}=\frac{e^2}{h}\sum_nC_n\]</div>
+<p>Among them, is the Chern number of the  <span class="math notranslate nohighlight">\(n\)</span> th energy band,
+and  <span class="math notranslate nohighlight">\(e^2/h\)</span> is the minimum value of the quantized conductivity.
+The Chern number can be obtained by integrating Berry curvature in Brillouin zone. In the previous calculation,
+we use the variable <code class="docutils literal notranslate"><span class="pre">chern_number</span></code> to obtain the return value of the <code class="docutils literal notranslate"><span class="pre">berry_curvature_basic</span></code> method.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">chern_number</span><span class="p">)</span>
+
+<span class="n">Output</span><span class="p">:</span>
+<span class="o">-</span><span class="mf">9.615313668486078e-21</span>
+</pre></div>
+</div>
+<p>Next we calculate the Hall conductivity contributed by the selected band</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">e</span><span class="p">,</span> <span class="n">h</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">h</span><span class="o">*</span><span class="n">chern_number</span><span class="p">)</span>
+
+<span class="n">Output</span><span class="p">:</span>
+<span class="o">-</span><span class="mf">3.725016615742094e-25</span>
+</pre></div>
+</div>
+<p>From this we can know that large twisted angles TBG are not a topological insulator
+without the influence of external fields or other effects.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Contact.html" class="btn btn-neutral float-right" title="Contact" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, green.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
