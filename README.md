@@ -1,6 +1,8 @@
 TBMoST
 ========
 
+Documentation for this package is available at [Read the Docs](https://tbmost.readthedocs.io/en/latest/)
+
 This package is specially designed for processing twisted-layer materials, 
 and can efficiently calculate and analyze a variety of physical properties, including:
 
