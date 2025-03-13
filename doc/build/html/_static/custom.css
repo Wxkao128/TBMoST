@@ -1,1 +1,5 @@
 /* This file intentionally left blank. */
+
+.borderless td {
+    background-color: transparent !important;
+}

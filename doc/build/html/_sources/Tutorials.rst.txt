@@ -366,15 +366,15 @@ we similarly choose to plot the lowest conduction band and the highest valence b
    bnd_str.plot_3b_band(solve_eig=eigenvalues, AllKx=kxx0, AllKy=kyy0, 
                         bnd_indices=[37,38], save_npyz=False)
 
-.. container:: image-row
+.. list-table::
+   :width: 100%
+   :class: borderless
 
-   .. image:: images/TBG_1317_3Dbnd.png
-      :width: 40%
-      :align: left
-
-   .. image:: images/TBG_1317_3Dbnd2.png
-      :width: 53%
-      :align: right
+   * - .. image:: images/TBG_1317_3Dbnd.png
+          :width: 100%
+         
+     - .. image:: images/TBG_1317_3Dbnd2.png
+          :width: 100%
 
 
 Fermi Surface
@@ -443,16 +443,16 @@ which characterizes the response of the system to external perturbations.
 The left figure shows the spectral function calculated by selecting the 8th and 9th atoms; 
 the right figure shows the plot of all atoms. The difference in values ​​between the two figures can be seen.
 
-.. container:: image-row
+.. list-table::
+   :width: 100%
+   :class: borderless
 
-   .. image:: images/TBG_1317_LSP.png
-      :width: 45%
-      :align: left
+   * - .. image:: images/TBG_1317_LSP.png
+          :width: 100%
+         
+     - .. image:: images/TBG_1317_TSP.png
+          :width: 100%
 
-   .. image:: images/TBG_1317_TSP.png
-      :width: 45%
-      :align: right
-  
 
 Density of state
 -------------------
@@ -492,15 +492,16 @@ as well as the k-point coordinates corresponding to these features.
    dos.total_dos_Delta(delta=0.025, rot_dos=False, e_grid=200)
    #dos.total_dos_GF(ham_matrix=hamiltonian, rot_dos=False, e_grid=200)
 
-.. container:: image-row
+.. list-table::
+   :width: 100%
+   :class: borderless
 
-   .. image:: images/TBG_1317_dos(hist).png
-      :width: 45%
-      :align: left
+   * - .. image:: images/TBG_1317_dos(hist).png
+          :width: 100%
+         
+     - .. image:: images/TBG_1317_dos(Delta).png
+          :width: 100%
 
-   .. image:: images/TBG_1317_dos(Delta).png
-      :width: 45%
-      :align: right
 
 The left figure is using histogram method, 
 while the right figure using the Lorentzian broadening method.
@@ -532,16 +533,15 @@ while 7,9,15 and 22 are second set.
 It can be seen that when projected onto the contributions of different atoms, 
 their values ​​are slightly different.
 
-.. container:: image-row
+.. list-table::
+   :width: 100%
+   :class: borderless
 
-   .. image:: images/TBG_1317_ldos.png
-      :width: 45%
-      :align: left
-
-   .. image:: images/TBG_1317_ldos2.png
-      :width: 45%
-      :align: right
-
+   * - .. image:: images/TBG_1317_ldos.png
+          :width: 100%
+         
+     - .. image:: images/TBG_1317_ldos2.png
+          :width: 100%
 
 .. note::
 

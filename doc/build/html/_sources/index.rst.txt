@@ -23,7 +23,10 @@ and performs electronic structure calculations based on the Tight Binding Model 
    About
    Installation
    Tutorials
+   Advanced
+   Gallery
    Contact
+
 
 
 This package is specially designed for processing twisted-layer materials, 
