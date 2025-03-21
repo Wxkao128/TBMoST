@@ -139,7 +139,7 @@ Output structure
 ----------------------
 
 We can save the structure generated above and provide it to other software for calculation and analysis. 
-The format we output is based on the format of the structure file ``POSCAR`` of the first principle calculation software **VASP**.
+The format we output is based on the format of the structure file ``POSCAR`` of the first principle calculation software :program:`VASP`.
 
 .. code-block:: python
 
@@ -366,15 +366,72 @@ we similarly choose to plot the lowest conduction band and the highest valence b
    bnd_str.plot_3b_band(solve_eig=eigenvalues, AllKx=kxx0, AllKy=kyy0, 
                         bnd_indices=[37,38], save_npyz=False)
 
-.. list-table::
-   :width: 100%
-   :class: borderless
+In addition to using ``matplotlib`` for presenting 3D plots, 
+we can utilize ``plotly`` for more detailed observation.
 
-   * - .. image:: images/TBG_1317_3Dbnd.png
-          :width: 100%
+.. code-block:: python
+
+   import plotly.graph_objects as go
+
+   cmap_list = ['Blues', 'Reds']
+
+   # build plotly figure
+   fig = go.Figure()
+   bnd_index_list = [37,38]
+
+   for i, n in enumerate(bnd_index_list):
+      fig.add_trace(go.Surface(
+            x=kxx0,
+            y=kyy0,
+            z=eigenvalues[:,n],
+            colorscale=cmap_list[i],
+            opacity=1,  
+            showscale=False,
+            hoverinfo='z'
+      ))
+
+   fig.update_layout(
+      width=600, height=500,
+      scene=dict(
+         xaxis_title='kx',
+         yaxis_title='ky',
+         zaxis_title='E(kx, ky)',
+         aspectratio=dict(x=1, y=1, z=1)  # Control xyz axis scale
+      ),
+      margin=dict(
+         l=40,  # left margin
+         r=40,  # right margin
+         b=40,  # bottom margin
+         t=20   # top margin
+      ),
+      autosize=True  # Automatically resize canvas
+   )
+
+   # save as html
+   fig.write_html(f'TBG_3d_bnd.html')
+   fig.show()
+
+
+.. raw:: html
+
+   <iframe src="_static/TBG_AA_1317_3dbnd.html" 
+           width="800" 
+           height="400" 
+           frameborder="0">
+   </iframe>
+
+
+.. 
+   .. list-table::
+      :width: 100%
+      :class: borderless
+
+      * - .. image:: images/TBG_1317_3Dbnd.png
+             :width: 100%
          
-     - .. image:: images/TBG_1317_3Dbnd2.png
-          :width: 100%
+        - .. image:: images/TBG_1317_3Dbnd2.png
+             :width: 100%
+
 
 
 Fermi Surface

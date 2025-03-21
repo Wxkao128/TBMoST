@@ -19,7 +19,10 @@ release = '1.0'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ['sphinx.ext.autodoc']
+extensions = [
+    'sphinx.ext.autodoc',
+    'sphinx.ext.viewcode'
+]
 
 templates_path = ['_templates']
 exclude_patterns = []
@@ -34,3 +37,4 @@ html_static_path = ['_static']
 
 # 載入自定義 CSS
 html_css_files = ['custom.css']
+

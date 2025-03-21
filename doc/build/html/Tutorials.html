@@ -9,7 +9,7 @@
   <title>Tutorials &mdash; TBMoST 1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=edfd26b7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=9a6b6d33" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
@@ -213,7 +213,7 @@ the second and third elements are the lattice vectors, and the fourth element is
 <section id="output-structure">
 <h2>Output structure<a class="headerlink" href="#output-structure" title="Link to this heading"></a></h2>
 <p>We can save the structure generated above and provide it to other software for calculation and analysis.
-The format we output is based on the format of the structure file <code class="docutils literal notranslate"><span class="pre">POSCAR</span></code> of the first principle calculation software <strong>VASP</strong>.</p>
+The format we output is based on the format of the structure file <code class="docutils literal notranslate"><span class="pre">POSCAR</span></code> of the first principle calculation software <strong class="program">VASP</strong>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">tbmost</span><span class="w"> </span><span class="kn">import</span> <span class="n">POSCARGenerator</span>
 
 <span class="n">poscar_generator</span> <span class="o">=</span> <span class="n">POSCARGenerator</span><span class="p">(</span><span class="n">atomO</span><span class="p">,</span> <span class="n">atomA</span><span class="p">,</span> <span class="n">atomB</span><span class="p">,</span> <span class="n">atomC</span><span class="p">,</span> <span class="n">can</span><span class="p">,</span>
@@ -403,18 +403,54 @@ we similarly choose to plot the lowest conduction band and the highest valence b
                      <span class="n">bnd_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">37</span><span class="p">,</span><span class="mi">38</span><span class="p">],</span> <span class="n">save_npyz</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
-<table class="borderless docutils align-default" style="width: 100%">
-<tbody>
-<tr class="row-odd"><td><a class="reference internal image-reference" href="_images/TBG_1317_3Dbnd.png"><img alt="_images/TBG_1317_3Dbnd.png" src="_images/TBG_1317_3Dbnd.png" style="width: 100%;" />
-</a>
-</td>
-<td><a class="reference internal image-reference" href="_images/TBG_1317_3Dbnd2.png"><img alt="_images/TBG_1317_3Dbnd2.png" src="_images/TBG_1317_3Dbnd2.png" style="width: 100%;" />
-</a>
-</td>
-</tr>
-</tbody>
-</table>
-</section>
+<p>In addition to using <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> for presenting 3D plots,
+we can utilize <code class="docutils literal notranslate"><span class="pre">plotly</span></code> for more detailed observation.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">plotly.graph_objects</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">go</span>
+
+<span class="n">cmap_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Blues&#39;</span><span class="p">,</span> <span class="s1">&#39;Reds&#39;</span><span class="p">]</span>
+
+<span class="c1"># build plotly figure</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+<span class="n">bnd_index_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">37</span><span class="p">,</span><span class="mi">38</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">bnd_index_list</span><span class="p">):</span>
+   <span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Surface</span><span class="p">(</span>
+         <span class="n">x</span><span class="o">=</span><span class="n">kxx0</span><span class="p">,</span>
+         <span class="n">y</span><span class="o">=</span><span class="n">kyy0</span><span class="p">,</span>
+         <span class="n">z</span><span class="o">=</span><span class="n">eigenvalues</span><span class="p">[:,</span><span class="n">n</span><span class="p">],</span>
+         <span class="n">colorscale</span><span class="o">=</span><span class="n">cmap_list</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+         <span class="n">opacity</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+         <span class="n">showscale</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+         <span class="n">hoverinfo</span><span class="o">=</span><span class="s1">&#39;z&#39;</span>
+   <span class="p">))</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+   <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+   <span class="n">scene</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+      <span class="n">xaxis_title</span><span class="o">=</span><span class="s1">&#39;kx&#39;</span><span class="p">,</span>
+      <span class="n">yaxis_title</span><span class="o">=</span><span class="s1">&#39;ky&#39;</span><span class="p">,</span>
+      <span class="n">zaxis_title</span><span class="o">=</span><span class="s1">&#39;E(kx, ky)&#39;</span><span class="p">,</span>
+      <span class="n">aspectratio</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Control xyz axis scale</span>
+   <span class="p">),</span>
+   <span class="n">margin</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+      <span class="n">l</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>  <span class="c1"># left margin</span>
+      <span class="n">r</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>  <span class="c1"># right margin</span>
+      <span class="n">b</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>  <span class="c1"># bottom margin</span>
+      <span class="n">t</span><span class="o">=</span><span class="mi">20</span>   <span class="c1"># top margin</span>
+   <span class="p">),</span>
+   <span class="n">autosize</span><span class="o">=</span><span class="kc">True</span>  <span class="c1"># Automatically resize canvas</span>
+<span class="p">)</span>
+
+<span class="c1"># save as html</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">write_html</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;TBG_3d_bnd.html&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<iframe src="_static/TBG_AA_1317_3dbnd.html"
+        width="800"
+        height="400"
+        frameborder="0">
+</iframe></section>
 </section>
 <section id="fermi-surface">
 <h2>Fermi Surface<a class="headerlink" href="#fermi-surface" title="Link to this heading"></a></h2>
