@@ -5,6 +5,23 @@
     :members:
     :noindex:
 
+
+Structure
+--------------------------------------
+.. figure:: images/Moire_734.png
+   :width: 600px
+   :align: center
+
+   Moire pattern of :math:`7.34^\circ`
+
+
+.. figure:: images/tbg_345_moire_poscar.png
+   :width: 400px
+   :align: center
+
+   Moire pattern of :math:`3.45^\circ` as POSCAR file
+
+
 Corrugation effect and band structure
 ---------------------------------------
 
@@ -65,6 +82,15 @@ Layer projected spectral function
 Layer projected spectral function of twisted trilayer graphene ABA stacking, From left to right are bottom layer, middle layer and top layer.
 
 
+Spin orbital coupling
+-----------------------------------------
+.. image:: images/TBG_348_bnd_w-wosoc.png
+   :width: 800px
+   :align: center
+
+Comparison of bands of TBG at :math:`3.48^\circ` without and with considering SOC
+
+
 Spin polarized band structure
 --------------------------------
 
@@ -84,3 +110,34 @@ Spin texture
    :align: center
 
 Spin texture of TBG at :math:`21.79^\circ` after considering Rashba SOC and Zeeman term.
+
+
+Fermi surface
+--------------------
+
+.. figure:: images/TBG_2179_fs_sin-in-one.png
+   :width: 600px
+   :align: center
+
+   Fermi surface of :math:`21.79^\circ` at different Fermi level
+
+
+.. figure:: images/fsbz_TBG_21.79_1.3.png
+   :width: 500px
+   :align: center
+
+   Fermi surface of :math:`21.79^\circ` at Fermi level 1.3eV
+
+
+
+Moiré potential
+--------------------
+
+.. figure:: images/mp_1.png
+   :width: 500px
+   :align: center
+
+
+.. figure:: images/mp_2.png
+   :width: 500px
+   :align: center

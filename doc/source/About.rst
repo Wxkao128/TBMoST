@@ -47,3 +47,6 @@ Main functions include:
 
 
 
+.. image:: images/hex_grid_plot.png
+   :width: 400px
+   :align: center
